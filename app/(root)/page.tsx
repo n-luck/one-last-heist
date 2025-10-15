@@ -1,21 +1,17 @@
+import { CharacterList } from "@/components/Character/CharacterList";
 import { Button } from "@/components/ui/button";
+
+import sampleData from "@/db/sample-data";
 
 const Homepage = () => {
   return (
-    <main>
-      <h1>One Last Heist</h1>
-      <Button>Test</Button>
-      <ul>
-        <li>
-          Main
-          <ul>
-            <li>campaigns</li>
-            <li>characters</li>
-          </ul>
-        </li>
-        <li>user</li>
-      </ul>
-    </main>
+    <>
+      <CharacterList
+        characterData={sampleData.characters}
+        title="Newest Characters"
+        limit={4}
+      />
+    </>
   );
 };
 
