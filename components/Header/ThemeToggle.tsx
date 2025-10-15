@@ -13,7 +13,7 @@ export const ThemeToggle = () => {
       <Button
         onClick={() => setTheme(theme === "light" ? "dark" : "light")}
         variant="ghost"
-        className="p-2 cursor-pointer"
+        className="mr-4 md:mr-0 md:p-2 cursor-pointer"
         title={`Theme toggle: Turn ${currentMode}`}
       >
         {theme === "light" ? <Sun /> : <Moon />}
