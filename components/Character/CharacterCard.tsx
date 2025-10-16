@@ -17,11 +17,10 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
             <Image
               src={image}
               alt={name}
-              //   height={300}
-              //   width={300}
               priority
-              objectFit="cover"
               fill
+              className="object-cover"
+              sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
             />
           </div>
         </Link>

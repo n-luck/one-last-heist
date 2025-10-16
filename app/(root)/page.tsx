@@ -1,15 +1,16 @@
 import { CharacterList } from "@/components/Character/CharacterList";
-import { Button } from "@/components/ui/button";
+import { getLatestCharacters } from "@/lib/actions/character.actions";
+import { CHARACTER_LIMIT } from "@/lib/constants";
 
-import sampleData from "@/db/sample-data";
+const Homepage = async () => {
+  const latestCharacters = await getLatestCharacters();
 
-const Homepage = () => {
   return (
     <>
       <CharacterList
-        characterData={sampleData.characters}
+        characterData={latestCharacters}
         title="Newest Characters"
-        limit={4}
+        limit={CHARACTER_LIMIT}
       />
     </>
   );
