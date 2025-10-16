@@ -12,3 +12,11 @@ export async function getLatestCharacters() {
 
   return convertToPlainObject(data);
 }
+
+export async function getCharacterBySlug(slug: string) {
+  return await prisma.character.findFirst({
+    where: {
+      slug: slug,
+    },
+  });
+}

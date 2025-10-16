@@ -16,7 +16,7 @@ export const insertCharacterSchema = z.object({
   background: z.string().nullable(),
   assets: z.string().nullable(),
   notes: z.string().nullable(),
-  specialAbilities: z.string().min(3, "Special abilities must be at least 3 characters."),
-  bonds: z.string().min(3, "Bonds must be at least 3 characters."),
+  specialAbilities:z.array(z.string()).default([]),
+  bonds: z.array(z.string()).default([]),
   pronouns: z.string().nullable(),
 });
