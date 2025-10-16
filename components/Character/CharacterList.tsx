@@ -1,7 +1,8 @@
+import { Character } from "@/types";
 import { CharacterCard } from "./CharacterCard";
 
 interface CharacterProps {
-  characterData: any;
+  characterData: Character[];
   title?: string;
   limit?: number;
 }

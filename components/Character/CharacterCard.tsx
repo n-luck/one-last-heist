@@ -1,9 +1,10 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import Image from "next/image";
+import { Character } from "@/types";
 
 interface CharacterCardProps {
-  character: any;
+  character: Character;
 }
 
 export const CharacterCard = ({ character }: CharacterCardProps) => {
@@ -15,7 +16,7 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
         <Link href={`characters/${slug}`}>
           <div className="relative w-full pt-[100%]">
             <Image
-              src={image}
+              src={image || "/images/characters/placeholder.jpeg"}
               alt={name}
               priority
               fill
