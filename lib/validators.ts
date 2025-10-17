@@ -16,7 +16,12 @@ export const insertCharacterSchema = z.object({
   background: z.string().nullable(),
   assets: z.string().nullable(),
   notes: z.string().nullable(),
-  specialAbilities:z.array(z.string()).default([]),
+  specialAbilities: z.array(z.string()).default([]),
   bonds: z.array(z.string()).default([]),
   pronouns: z.string().nullable(),
+});
+
+export const signInFormSchema = z.object({
+  email: z.email("Invalid email address."),
+  password: z.string().min(6, "Password must be at least 6 characters long."),
 });

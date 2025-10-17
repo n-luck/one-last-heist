@@ -22,6 +22,7 @@ export const Character = ({ character }: CharacterProps) => {
     conditions,
     bonds,
     image,
+    player,
   } = character;
 
   return (
@@ -41,20 +42,34 @@ export const Character = ({ character }: CharacterProps) => {
           <h1 className="h1-bold mb-1">{name}</h1>
           <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-8">
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">Pronouns</h4>
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+                Pronouns
+              </h4>
               <span>{pronouns}</span>
             </div>
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">Primary Role</h4>
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+                Primary Role
+              </h4>
               <span>{primaryRole}</span>
             </div>
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">Secondary Role</h4>
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+                Secondary Role
+              </h4>
               <span>{secondaryRole}</span>
             </div>
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">Secondary Role</h4>
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+                Secondary Role
+              </h4>
               <span>{secondaryRole2}</span>
+            </div>
+            <div className="flex flex-col">
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+                Player
+              </h4>
+              <span>{player}</span>
             </div>
           </div>
         </div>
