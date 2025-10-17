@@ -7,7 +7,6 @@ interface CharacterProps {
 }
 
 export const Character = ({ character }: CharacterProps) => {
-  console.log("CHARACTER 2: ", character);
   const {
     name,
     pronouns,
@@ -24,8 +23,6 @@ export const Character = ({ character }: CharacterProps) => {
     bonds,
     image,
   } = character;
-
-  console.log("specialAbilities: ", typeof specialAbilities);
 
   return (
     <>

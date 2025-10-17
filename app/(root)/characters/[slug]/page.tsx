@@ -10,8 +10,6 @@ const CharacterPage = async (props: { params: Promise<{ slug: string }> }) => {
 
   if (!character) notFound();
 
-  console.log("CHARACTER 1: ", character);
-
   return (
     <section className="flex flex-col gap-2">
       <Character character={character} />
