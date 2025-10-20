@@ -3,13 +3,13 @@ import type { Metadata } from "next";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 
-import { SignInPage as SignIn } from "@/components/pages/signIn";
+import { SignUpPage as SignUp } from "@/components/pages/signUp";
 
 export const metadata: Metadata = {
-  title: "Sign in",
+  title: "Sign up",
 };
 
-const SignInPage = async (props: {
+const SignUpPage = async (props: {
   searchParams: Promise<{
     callbackUrl: string;
   }>;
@@ -21,7 +21,7 @@ const SignInPage = async (props: {
     return redirect(callbackUrl || "/");
   }
 
-  return <SignIn />;
+  return <SignUp />;
 };
 
-export default SignInPage;
+export default SignUpPage;
