@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-import { Fingerprint, MenuIcon, Swords, UserRound } from "lucide-react";
+import { Fingerprint, MenuIcon, Swords } from "lucide-react";
 import { ThemeToggle } from "../ThemeToggle";
 import {
   Sheet,
@@ -11,6 +11,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { APP_NAME } from "@/lib/constants";
+import { UserButton } from "./UserButton";
 
 export const Menu = () => {
   return (
@@ -24,12 +25,7 @@ export const Menu = () => {
             Campaigns
           </Link>
         </Button>
-        <Button asChild>
-          <Link href="/sign-in">
-            <UserRound />
-            Sign In
-          </Link>
-        </Button>
+        <UserButton />
       </nav>
       {/* MOBILE NAV */}
       <nav className="md:hidden flex-center">
@@ -47,12 +43,7 @@ export const Menu = () => {
                 <Swords /> Campaigns
               </Link>
             </Button>
-            <Button asChild variant="ghost" className="text-lg">
-              <Link href="/sign-in">
-                <UserRound />
-                Sign In
-              </Link>
-            </Button>
+            <UserButton />
             <SheetDescription />
           </SheetContent>
         </Sheet>
