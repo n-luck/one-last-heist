@@ -1,4 +1,3 @@
-import { Logo } from "@/components/Header/Logo";
 import { SignIn } from "@/components/SignIn";
 import {
   Card,
@@ -11,10 +10,9 @@ import {
 
 export const SignInPage = () => {
   return (
-    <div className="w-full max-w-md mx-auto">
+    <div className="w-full max-w-md mx-auto p-4">
       <Card>
         <CardHeader className="gap-4">
-          <Logo />
           <CardTitle className="text-center h1-bold">Sign in</CardTitle>
           <CardDescription className="text-center">
             Sign in to your account.

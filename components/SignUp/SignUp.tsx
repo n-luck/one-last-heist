@@ -34,7 +34,7 @@ export const SignUp = () => {
             id="name"
             name="name"
             type="name"
-            required
+            
             autoComplete="name"
           />
         </div>
@@ -44,7 +44,7 @@ export const SignUp = () => {
             id="email"
             name="email"
             type="email"
-            required
+            
             autoComplete="email"
           />
         </div>
@@ -54,7 +54,7 @@ export const SignUp = () => {
             id="password"
             name="password"
             type="password"
-            required
+            
             autoComplete="password"
           />
         </div>
@@ -64,7 +64,7 @@ export const SignUp = () => {
             id="confirmPassword"
             name="confirmPassword"
             type="password"
-            required
+            
             autoComplete="confirmPassword"
           />
         </div>

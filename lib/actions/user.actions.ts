@@ -7,6 +7,7 @@ import { signIn, signOut } from "@/auth";
 
 import { signInFormSchema } from "../validators";
 import { signUpFormSchema } from "../validators";
+import { formatError } from "../utils";
 
 export async function signInWithCredentials(
   prevState: unknown,
@@ -44,13 +45,14 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
     });
 
     const plainPassword = user.password;
-    const hashedPassword = hashSync(user.password, 10);
+
+    user.password = hashSync(user.password, 10);
 
     await prisma.user.create({
       data: {
         name: user.name,
         email: user.email,
-        password: hashedPassword,
+        password: user.password,
       },
     });
 
@@ -59,12 +61,12 @@ export async function signUpUser(prevState: unknown, formData: FormData) {
       password: plainPassword,
     });
 
-    return { success: true, message: "Sign up successful." };
+    return { success: true, message: "User registered successfully." };
   } catch (error) {
     if (isRedirectError(error)) {
       throw error;
     }
 
-    return { success: false, message: "User could not be signed up." };
+    return { success: false, message: formatError(error) };
   }
 }
