@@ -5,6 +5,8 @@ import prisma from "@/db/prisma";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compareSync } from "bcrypt-ts-edge";
 
+import { authConfig } from "./auth.config";
+
 export const config = {
   pages: {
     signIn: "/sign-in",
@@ -86,6 +88,7 @@ export const config = {
 
       return token;
     },
+    ...authConfig.callbacks,
   },
 } satisfies NextAuthConfig;
 

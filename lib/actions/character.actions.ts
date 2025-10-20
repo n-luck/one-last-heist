@@ -20,3 +20,11 @@ export async function getCharacterBySlug(slug: string) {
     },
   });
 }
+
+export async function getCharactersByPlayer(player: string) {
+  return await prisma.character.findMany({
+    where: {
+      player: player,
+    },
+  });
+}
