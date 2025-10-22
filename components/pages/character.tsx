@@ -1,6 +1,12 @@
+"use client";
+
 import { Character as CharacterType } from "@/types";
 import Image from "next/image";
+
 import { CharacterInfo } from "../Character/CharacterInfo";
+import { Button } from "../ui/button";
+import { useIsPlayer } from "@/lib/hooks/useIsPlayer";
+import Link from "next/link";
 
 interface CharacterProps {
   character: CharacterType;
@@ -23,11 +29,20 @@ export const Character = ({ character }: CharacterProps) => {
     bonds,
     image,
     player,
+    slug
   } = character;
+  const { isPlayer } = useIsPlayer(player);
 
   return (
     <>
-      <div className="grid grid-cols-9 gap-4 border-b pb-4 mb-4">
+      <div className="grid grid-cols-9 gap-4 border-b pb-4 mb-4 relative">
+        {isPlayer && (
+          <div className="absolute right-0 top-0">
+            <Button asChild>
+              <Link href={`/characters/${slug}/edit`}>Edit</Link>
+            </Button>
+          </div>
+        )}
         <div className="relative w-full pt-[100%] col-span-2 md:col-span-1">
           <Image
             src={image || "/images/characters/placeholder.jpeg"}

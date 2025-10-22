@@ -1,0 +1,28 @@
+import type { Metadata } from "next";
+
+import { CharacterForm } from "@/components/CharacterForm";
+import { getCharacterBySlug } from "@/lib/actions/character.actions";
+import { notFound } from "next/navigation";
+
+export const metadata: Metadata = {
+  title: "Edit Character",
+};
+
+const EditCharacterPage = async (props: {
+  params: Promise<{ slug: string }>;
+}) => {
+  const { slug } = await props.params;
+
+  const character = await getCharacterBySlug(slug);
+
+  if (!character) notFound();
+
+  return (
+    <div className="container mx-auto space-y-4">
+      <h2 className="h2-bold">Edit Character</h2>
+      <CharacterForm character={character} />
+    </div>
+  );
+};
+
+export default EditCharacterPage;

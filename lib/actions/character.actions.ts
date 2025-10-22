@@ -2,7 +2,8 @@
 
 import prisma from "@/db/prisma";
 import { CHARACTER_LIMIT } from "../constants";
-import { convertToPlainObject } from "../utils";
+import { convertToPlainObject, formatError } from "../utils";
+import { auth } from "@/auth";
 
 export async function getLatestCharacters() {
   const data = await prisma.character.findMany({
@@ -27,4 +28,33 @@ export async function getCharactersByPlayer(player: string) {
       player: player,
     },
   });
+}
+
+export async function getCharactersById(id: string) {
+  return await prisma.character.findFirst({
+    where: {
+      id: id,
+    },
+  });
+}
+
+export async function updateCharacter( id: string, newName: string ) {
+  try {
+    const currentCharacter = await getCharactersById(id)
+
+    if (!currentCharacter) throw new Error("User not found.");
+
+    await prisma.character.update({
+      where: {
+        id: currentCharacter.id,
+      },
+      data: {
+        name: newName,
+      },
+    });
+
+    return { success: true, message: "Character updated successfully." };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
 }
