@@ -29,7 +29,7 @@ export const SignUp = () => {
     <form action={action}>
       <div className="space-y-6">
         <div className="space-y-2">
-          <Label htmlFor="name">Name</Label>
+          <Label htmlFor="name">Player name</Label>
           <Input
             id="name"
             name="name"

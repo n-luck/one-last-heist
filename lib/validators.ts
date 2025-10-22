@@ -39,3 +39,8 @@ export const signUpFormSchema = z
     message: "Passwords need to match.",
     path: ["confirmPassword"],
   });
+
+export const updateProfileSchema = z.object({
+  name: z.string().min(3, "Name must be at least 3 characters long."),
+  email: z.string().min(3, "Name must be at least 3 characters long."),
+});

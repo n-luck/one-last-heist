@@ -8,21 +8,19 @@ export default function UserLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
-      <div className="flex flex-col">
-        <div className="border-b container mx-auto">
-          <div className="flex items-center h-16 px-4">
-            <Logo />
-            <UserMenu className="mx-6" />
-            <div className="ml-auto items-center flex space-x-4">
-              <Menu />
-            </div>
+    <div className="flex flex-col">
+      <div className="border-b">
+        <div className="flex items-center h-16 px-4 mx-auto container">
+          <Logo />
+          <UserMenu className="mx-6" />
+          <div className="ml-auto items-center flex space-x-4">
+            <Menu />
           </div>
         </div>
-        <div className="flex-1 space-y-4 p-8 pt-0 container mx-auto">
-          {children}
-        </div>
       </div>
-    </>
+      <div className="flex-1 space-y-4 p-8 pt-4 container mx-auto">
+        {children}
+      </div>
+    </div>
   );
 }
