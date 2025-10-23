@@ -19,7 +19,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
 export const CharacterForm = (character: {character: Character}) => {
-  console.log(character)
+  // console.log(character)
   const form = useForm<z.infer<typeof updateCharacterSchema>>({
     resolver: zodResolver(updateCharacterSchema),
     defaultValues: {

@@ -3,7 +3,6 @@
 import prisma from "@/db/prisma";
 import { CHARACTER_LIMIT } from "../constants";
 import { convertToPlainObject, formatError } from "../utils";
-import { auth } from "@/auth";
 
 export async function getLatestCharacters() {
   const data = await prisma.character.findMany({
