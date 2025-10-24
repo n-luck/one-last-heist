@@ -344,6 +344,18 @@ export const CharacterForm = ({
                   <FormLabel>Image</FormLabel>
                   <Card className="rounded-none">
                     <CardContent className="space-y-2">
+                      {image &&
+                        image !== "/images/characters/placeholder.jpeg" && (
+                          <div className="flex-start space-x-2">
+                            <Image
+                              src={image}
+                              alt="Character image"
+                              width="100"
+                              height="100"
+                              className="w-20 h-20 object-center object-cover"
+                            />
+                          </div>
+                        )}
                       <FormControl>
                         <UploadButton
                           endpoint="imageUploader"
