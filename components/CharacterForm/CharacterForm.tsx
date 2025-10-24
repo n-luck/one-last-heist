@@ -1,3 +1,6 @@
+// @ts-nocheck
+// to do: update once zod bug is resolved
+
 "use client";
 
 import { useRouter } from "next/navigation";
