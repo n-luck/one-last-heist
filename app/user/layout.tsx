@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { Logo } from "@/components/Header/Logo";
 import { Menu } from "@/components/Header/Menu";
 import { UserMenu } from "@/components/Header/UserMenu";
+import { redirect } from "next/navigation";
 
 export default async function UserLayout({
   children,
@@ -11,6 +12,7 @@ export default async function UserLayout({
   children: React.ReactNode;
 }>) {
   const session = await auth();
+  if(!session?.user?.name) redirect("/sign-in")
   
   return (
     <SessionProvider session={session}>
