@@ -2,6 +2,7 @@ import { z } from "zod";
 
 export const insertCharacterSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters."),
+  slug: z.string().min(3, "Slug must be at least 3 characters."),
   campaign: z.string().min(3, "Campaign must be at least 3 characters."),
   image: z.string().nullable(),
   player: z.string().min(3, "Player must be at least 3 characters."),
@@ -18,7 +19,13 @@ export const insertCharacterSchema = z.object({
   notes: z.string().nullable(),
   specialAbilities: z.array(z.string()).default([]),
   bonds: z.array(z.string()).default([]),
+  conditions: z.array(z.string()).default([]),
+  stress: z.array(z.string()).default([]),
   pronouns: z.string().nullable(),
+});
+
+export const updateCharacterSchema = insertCharacterSchema.extend({
+  // id: z.string().min(1, "Id is required."),
 });
 
 export const signInFormSchema = z.object({
@@ -43,9 +50,4 @@ export const signUpFormSchema = z
 export const updateProfileSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters long."),
   email: z.string().min(3, "Name must be at least 3 characters long."),
-});
-
-export const updateCharacterSchema = z.object({
-  player: z.string().min(3, "Player must be at least 3 characters long."),
-  name: z.string().min(3, "Name must be at least 3 characters long."),
 });

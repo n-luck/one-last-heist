@@ -26,12 +26,12 @@ model Character {
   secondaryRole2   String
   look             String?
   background       String?
-  stress           String[]
+  stress           String[] @default([])
   assets           String?
   notes            String?
   specialAbilities String[]
-  conditions       String[]
-  bonds            String[]
+  conditions       String[] @default([])
+  bonds            String[] @default([])
   pronouns         String?
 
   createdAt DateTime @default(now()) @db.Timestamp(6)

@@ -3,6 +3,9 @@
 import prisma from "@/db/prisma";
 import { CHARACTER_LIMIT } from "../constants";
 import { convertToPlainObject, formatError } from "../utils";
+import z from "zod";
+import { insertCharacterSchema, updateCharacterSchema } from "../validators";
+import { revalidatePath } from "next/cache";
 
 export async function getLatestCharacters() {
   const data = await prisma.character.findMany({
@@ -37,22 +40,47 @@ export async function getCharactersById(id: string) {
   });
 }
 
-export async function updateCharacter( id: string, newName: string ) {
+export async function createCharacter(
+  data: z.infer<typeof insertCharacterSchema>
+) {
   try {
-    const currentCharacter = await getCharactersById(id)
+    const character = insertCharacterSchema.parse(data);
 
-    if (!currentCharacter) throw new Error("User not found.");
+    await prisma.character.create({
+      data: character,
+    });
 
-    await prisma.character.update({
+    revalidatePath("/user");
+
+    return { success: true, message: "Character was created successfully." };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}
+
+export async function updateCharacter(
+  data: z.infer<typeof updateCharacterSchema>
+) {
+  try {
+    const character = updateCharacterSchema.parse(data);
+    const characterExists = await prisma.character.findFirst({
       where: {
-        id: currentCharacter.id,
-      },
-      data: {
-        name: newName,
+        id: character.id,
       },
     });
 
-    return { success: true, message: "Character updated successfully." };
+    if (!characterExists) throw new Error("Character not found.");
+
+    await prisma.character.update({
+      where: {
+        id: character.id,
+      },
+      data: character,
+    });
+
+    revalidatePath("/user");
+
+    return { success: true, message: "Character was updated successfully." };
   } catch (error) {
     return { success: false, message: formatError(error) };
   }

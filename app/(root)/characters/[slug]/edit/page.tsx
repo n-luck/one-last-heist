@@ -28,7 +28,7 @@ const EditCharacterPage = async (props: {
   return (
     <div className="container mx-auto space-y-4">
       <h2 className="h2-bold">Edit Character</h2>
-      <CharacterForm character={character} />
+      <CharacterForm character={character} characterId={character.id} type="update" />
     </div>
   );
 };

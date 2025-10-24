@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Character" ALTER COLUMN "stress" SET DEFAULT ARRAY[]::TEXT[],
+ALTER COLUMN "conditions" SET DEFAULT ARRAY[]::TEXT[],
+ALTER COLUMN "bonds" SET DEFAULT ARRAY[]::TEXT[];
