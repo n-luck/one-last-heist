@@ -28,10 +28,17 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
 
   return (
     <Card
-      className="w-full max-w-sm pt-0 pb-5 gap-1 rounded-b-none"
+      className="w-full max-w-sm pt-0 pb-5 gap-1 rounded-b-none relative"
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
     >
+      {isPlayer && isHover && (
+        <div className="absolute right-2 top-2 z-10">
+          <Button size="sm" asChild>
+            <Link href={`/characters/${slug}/edit`}>Edit</Link>
+          </Button>
+        </div>
+      )}
       <CardHeader className="p-0 items-center">
         <Link href={`characters/${slug}`}>
           <div className="relative w-full pt-[100%]">
@@ -43,11 +50,6 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
               className="object-cover"
               sizes="(max-width: 639px) 100vw, (max-width: 767px) 50vw, (max-width: 1023px) 33vw, 25vw"
             />
-            {isPlayer && isHover && (
-              <div className="absolute right-2 top-2">
-                <Button size="sm">Edit</Button>
-              </div>
-            )}
           </div>
         </Link>
       </CardHeader>
