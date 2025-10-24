@@ -25,7 +25,7 @@ export const insertCharacterSchema = z.object({
 });
 
 export const updateCharacterSchema = insertCharacterSchema.extend({
-  // id: z.string().min(1, "Id is required."),
+  id: z.string().min(1, "Id is required."),
 });
 
 export const signInFormSchema = z.object({
