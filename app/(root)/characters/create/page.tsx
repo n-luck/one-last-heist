@@ -8,9 +8,7 @@ export const metadata: Metadata = {
   title: "Create Character",
 };
 
-const CreateCharacterPage = async (props: {
-  params: Promise<{ slug: string }>;
-}) => {
+const CreateCharacterPage = async () => {
   const session = await auth();
   if (!session || !session.user || !session.user.name) redirect("/sign-in");
 

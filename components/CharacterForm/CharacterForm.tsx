@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-nocheck
 // to do: update once zod bug is resolved
 
@@ -34,6 +35,9 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
+import { Card, CardContent } from "../ui/card";
+import Image from "next/image";
+import { UploadButton } from "@/lib/uploadthing";
 
 interface CharacterFormProps {
   character?: Character;
@@ -124,9 +128,9 @@ export const CharacterForm = ({
       router.push("/user");
       return;
     }
-
-    toast.message(res.message);
   };
+
+  const image = form.watch("image");
 
   return (
     <Form {...form}>
@@ -331,26 +335,37 @@ export const CharacterForm = ({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="image"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "image"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Image</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className="md:col-span-2 upload-field">
+            <FormField
+              control={form.control}
+              name="image"
+              render={() => (
+                <FormItem className="w-full">
+                  <FormLabel>Image</FormLabel>
+                  <Card className="rounded-none">
+                    <CardContent className="space-y-2">
+                      <FormControl>
+                        <UploadButton
+                          endpoint="imageUploader"
+                          onClientUploadComplete={(res) => {
+                            if (res && res[0]?.url) {
+                              form.setValue("image", res[0].url);
+                            } else {
+                              toast.error(
+                                "Upload failed: no file URL returned."
+                              );
+                            }
+                          }}
+                        />
+                      </FormControl>
+                    </CardContent>
+                  </Card>
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
           <FormField
             control={form.control}
             name="specialAbilities"
