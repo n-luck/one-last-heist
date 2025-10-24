@@ -55,7 +55,7 @@ export const Character = ({ character }: CharacterProps) => {
         </div>
         <div className="col-span-6 md:col-span-8">
           <h1 className="h1-bold mb-1">{name}</h1>
-          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-8 gap-1">
             <div className="flex flex-col">
               <h4 className="h3-bold text-xs uppercase text-muted-foreground">
                 Pronouns
@@ -67,18 +67,21 @@ export const Character = ({ character }: CharacterProps) => {
                 Primary Role
               </h4>
               <span>{primaryRole}</span>
+              <span className="text-xs text-muted-foreground">(add +3d)</span>
             </div>
             <div className="flex flex-col">
               <h4 className="h3-bold text-xs uppercase text-muted-foreground">
                 Secondary Role
               </h4>
               <span>{secondaryRole}</span>
+              <span className="text-xs text-muted-foreground">(add +2d)</span>
             </div>
             <div className="flex flex-col">
               <h4 className="h3-bold text-xs uppercase text-muted-foreground">
                 Secondary Role
               </h4>
               <span>{secondaryRole2}</span>
+              <span className="text-xs text-muted-foreground">(add +2d)</span>
             </div>
             <div className="flex flex-col">
               <h4 className="h3-bold text-xs uppercase text-muted-foreground">

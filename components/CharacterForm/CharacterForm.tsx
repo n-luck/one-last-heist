@@ -5,12 +5,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  ControllerRenderProps,
-  useForm,
-  useFieldArray,
-  SubmitHandler,
-} from "react-hook-form";
+import { ControllerRenderProps, useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import slugify from "slugify";
@@ -35,9 +30,10 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
-import { Card, CardContent } from "../ui/card";
-import Image from "next/image";
-import { UploadButton } from "@/lib/uploadthing";
+
+import { CharacterFormFields } from "./CharacterFormFields";
+import { CharacterFormArray } from "./CharacterFormArray";
+import { CharacterFormImage } from "./CharacterFormImage";
 
 interface CharacterFormProps {
   character?: Character;
@@ -55,82 +51,27 @@ export const CharacterForm = ({
   const router = useRouter();
   const isUpdate = type === "update";
 
-  const createForm = useForm<z.infer<typeof insertCharacterSchema>>({
-    resolver: zodResolver(insertCharacterSchema),
-    defaultValues: { ...characterDefaultValues, player: player },
-  });
-  const updateForm = useForm<z.infer<typeof updateCharacterSchema>>({
-    resolver: zodResolver(updateCharacterSchema),
-    defaultValues: character,
-  });
+  const schema = isUpdate ? updateCharacterSchema : insertCharacterSchema;
+  const defaultValues = isUpdate
+    ? character
+    : { ...characterDefaultValues, player };
 
-  const form = isUpdate ? updateForm : createForm;
-  const {
-    fields: specialFields,
-    append: specialAppend,
-    remove: specialRemove,
-  } = useFieldArray({
-    control: form.control,
-    name: "specialAbilities",
+  const form = useForm<z.infer<typeof schema>>({
+    resolver: zodResolver(schema),
+    defaultValues,
   });
 
-  const {
-    fields: bondsFields,
-    append: bondsAppend,
-    remove: bondsRemove,
-  } = useFieldArray({
-    control: form.control,
-    name: "bonds",
-  });
+  const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (values) => {
+    const action = isUpdate
+      ? updateCharacter({ ...values, id: characterId })
+      : createCharacter(values);
 
-  const {
-    fields: conditionsFields,
-    append: conditionsAppend,
-    remove: conditionsRemove,
-  } = useFieldArray({
-    control: form.control,
-    name: "conditions",
-  });
+    const res = await action;
+    if (!res.success) return toast.error(res.message);
 
-  const {
-    fields: stressFields,
-    append: stressAppend,
-    remove: stressRemove,
-  } = useFieldArray({
-    control: form.control,
-    name: "stress",
-  });
-
-  const onSubmit: SubmitHandler<z.infer<typeof insertCharacterSchema>> = async (
-    values
-  ) => {
-    if (isUpdate) {
-      if (!characterId) {
-        router.push("/user");
-        return;
-      }
-
-      const res = await updateCharacter({ ...values, id: characterId });
-
-      if (!res.success) {
-        return toast.error(res.message);
-      } else {
-        toast.message(res.message);
-        router.push("/user");
-      }
-    }
-
-    const res = await createCharacter(values);
-    if (!res.success) {
-      return toast.error(res.message);
-    } else {
-      toast.message(res.message);
-      router.push("/user");
-      return;
-    }
+    toast.success(res.message);
+    router.push("/user");
   };
-
-  const image = form.watch("image");
 
   return (
     <Form {...form}>
@@ -195,335 +136,38 @@ export const CharacterForm = ({
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="pronouns"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "pronouns"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Pronouns</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="campaign"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "campaign"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Campaign*</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="primaryRole"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "primaryRole"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Primary role*</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="secondaryRole"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "secondaryRole"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Secondary role #1*</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="secondaryRole2"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "secondaryRole2"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Secondary role #2*</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="look"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "look"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Look</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="assets"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "assets"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Assets</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="md:col-span-2 upload-field">
-            <FormField
-              control={form.control}
-              name="image"
-              render={() => (
-                <FormItem className="w-full">
-                  <FormLabel>Image</FormLabel>
-                  <Card className="rounded-none">
-                    <CardContent className="space-y-2">
-                      {image &&
-                        image !== "/images/characters/placeholder.jpeg" && (
-                          <div className="flex-start space-x-2">
-                            <Image
-                              src={image}
-                              alt="Character image"
-                              width="100"
-                              height="100"
-                              className="w-20 h-20 object-center object-cover"
-                            />
-                          </div>
-                        )}
-                      <FormControl>
-                        <UploadButton
-                          endpoint="imageUploader"
-                          onClientUploadComplete={(res) => {
-                            if (res && res[0]?.url) {
-                              form.setValue("image", res[0].url);
-                            } else {
-                              toast.error(
-                                "Upload failed: no file URL returned."
-                              );
-                            }
-                          }}
-                        />
-                      </FormControl>
-                    </CardContent>
-                  </Card>
 
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <CharacterFormFields form={form} />
+
+          <div className="md:col-span-2 upload-field">
+            <CharacterFormImage control={form.control} form={form} />
           </div>
-          <FormField
-            control={form.control}
+
+          <CharacterFormArray
             name="specialAbilities"
-            render={() => (
-              <FormItem className="w-full">
-                <FormLabel>Special Abilities*</FormLabel>
-                <FormControl>
-                  <div className="flex flex-col gap-2">
-                    {specialFields.map((field, index) => (
-                      <div key={field.id} className="flex gap-2 items-center">
-                        <Input
-                          {...form.register(
-                            `specialAbilities.${index}` as const
-                          )}
-                          className="input-field"
-                        />
-                        <Button
-                          type="button"
-                          size="sm"
-                          onClick={() => specialRemove(index)}
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    ))}
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={() => specialAppend("")} // add empty string for a new ability
-                    >
-                      Add Ability
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
+            label="Special Abilities*"
             control={form.control}
+            register={form.register}
+          />
+          <CharacterFormArray
             name="bonds"
-            render={() => (
-              <FormItem className="w-full">
-                <FormLabel>Bonds</FormLabel>
-                <FormControl>
-                  <div className="flex flex-col gap-2">
-                    {bondsFields.map((field, index) => (
-                      <div key={field.id} className="flex gap-2 items-center">
-                        <Input
-                          {...form.register(`bonds.${index}` as const)}
-                          className="input-field"
-                        />
-                        <Button
-                          type="button"
-                          size="sm"
-                          onClick={() => bondsRemove(index)}
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    ))}
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={() => bondsAppend("")} // add empty string for a new ability
-                    >
-                      Add Bond
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
+            label="Bonds"
             control={form.control}
+            register={form.register}
+          />
+          <CharacterFormArray
             name="conditions"
-            render={() => (
-              <FormItem className="w-full">
-                <FormLabel>Conditions</FormLabel>
-                <FormControl>
-                  <div className="flex flex-col gap-2">
-                    {conditionsFields.map((field, index) => (
-                      <div key={field.id} className="flex gap-2 items-center">
-                        <Input
-                          {...form.register(`conditions.${index}` as const)}
-                          className="input-field"
-                        />
-                        <Button
-                          type="button"
-                          size="sm"
-                          onClick={() => conditionsRemove(index)}
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    ))}
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={() => conditionsAppend("")} // add empty string for a new ability
-                    >
-                      Add Condition
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
+            label="Conditions"
             control={form.control}
-            name="stress"
-            render={() => (
-              <FormItem className="w-full">
-                <FormLabel>Stress</FormLabel>
-                <FormControl>
-                  <div className="flex flex-col gap-2">
-                    {stressFields.map((field, index) => (
-                      <div key={field.id} className="flex gap-2 items-center">
-                        <Input
-                          {...form.register(`stress.${index}` as const)}
-                          className="input-field"
-                        />
-                        <Button
-                          type="button"
-                          size="sm"
-                          onClick={() => stressRemove(index)}
-                        >
-                          Remove
-                        </Button>
-                      </div>
-                    ))}
-                    <Button
-                      type="button"
-                      size="sm"
-                      onClick={() => stressAppend("")} // add empty string for a new ability
-                    >
-                      Add Stress
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
+            register={form.register}
           />
+          <CharacterFormArray
+            name="stress"
+            label="Stress"
+            control={form.control}
+            register={form.register}
+          />
+
           <FormField
             control={form.control}
             name="background"
