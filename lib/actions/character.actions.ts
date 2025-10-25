@@ -7,6 +7,14 @@ import z from "zod";
 import { insertCharacterSchema, updateCharacterSchema } from "../validators";
 import { revalidatePath } from "next/cache";
 
+export async function getAllCharacters() {
+  const data = await prisma.character.findMany({
+    orderBy: { name: "asc" },
+  });
+
+  return convertToPlainObject(data);
+}
+
 export async function getLatestCharacters() {
   const data = await prisma.character.findMany({
     take: CHARACTER_LIMIT,
@@ -32,7 +40,7 @@ export async function getCharactersByPlayer(player: string) {
   });
 }
 
-export async function getCharactersById(id: string) {
+export async function getCharacterById(id: string) {
   return await prisma.character.findFirst({
     where: {
       id: id,
@@ -63,11 +71,7 @@ export async function updateCharacter(
 ) {
   try {
     const character = updateCharacterSchema.parse(data);
-    const characterExists = await prisma.character.findFirst({
-      where: {
-        id: character.id,
-      },
-    });
+    const characterExists = await getCharacterById(character.id);
 
     if (!characterExists) throw new Error("Character not found.");
 

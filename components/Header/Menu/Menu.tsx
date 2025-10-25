@@ -20,7 +20,7 @@ export const Menu = () => {
       <nav className="hidden md:flex w-full max-w-xs gap-1">
         <ThemeToggle />
         <Button asChild variant="ghost">
-          <Link href="/user">
+          <Link href="/characters">
             <Swords />
             Characters
           </Link>
@@ -39,7 +39,7 @@ export const Menu = () => {
               <Fingerprint className="inline w-5 h-5 mr-1" /> {APP_NAME}
             </SheetTitle>
             <Button asChild variant="ghost" className="text-lg">
-              <Link href="/user">
+              <Link href="/characters">
                 <Swords /> Characters
               </Link>
             </Button>
