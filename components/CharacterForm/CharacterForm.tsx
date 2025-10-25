@@ -143,6 +143,8 @@ export const CharacterForm = ({
             <CharacterFormImage control={form.control} form={form} />
           </div>
 
+          <hr className="col-span-2" />
+
           <CharacterFormArray
             name="specialAbilities"
             label="Special Abilities*"
@@ -156,17 +158,13 @@ export const CharacterForm = ({
             register={form.register}
           />
           <CharacterFormArray
-            name="conditions"
-            label="Conditions"
-            control={form.control}
-            register={form.register}
-          />
-          <CharacterFormArray
             name="stress"
             label="Stress"
             control={form.control}
             register={form.register}
           />
+
+          <hr className="col-span-2" />
 
           <FormField
             control={form.control}

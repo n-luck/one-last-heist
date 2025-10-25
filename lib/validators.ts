@@ -19,7 +19,7 @@ export const insertCharacterSchema = z.object({
   notes: z.string().nullable(),
   specialAbilities: z.array(z.string()).default([]),
   bonds: z.array(z.string()).default([]),
-  conditions: z.array(z.string()).default([]),
+  conditions: z.array(z.boolean()).default([]),
   stress: z.array(z.string()).default([]),
   pronouns: z.string().nullable(),
 });

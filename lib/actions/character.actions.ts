@@ -89,3 +89,21 @@ export async function updateCharacter(
     return { success: false, message: formatError(error) };
   }
 }
+
+export async function updateCharacterCheckboxes(
+  slug: string,
+  type: "conditions",
+  checks: boolean[]
+) {
+  try {
+    await prisma.character.update({
+      where: { slug },
+      data: type === "conditions" && { conditions: checks },
+    });
+
+    revalidatePath(`/characters/${slug}`);
+    return { success: true, message: "Character was updated successfully." };
+  } catch (error) {
+    return { success: false, message: formatError(error) };
+  }
+}

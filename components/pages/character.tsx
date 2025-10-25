@@ -1,12 +1,16 @@
 "use client";
 
+import { useState, useTransition } from "react";
 import { Character as CharacterType } from "@/types";
 import Image from "next/image";
+import Link from "next/link";
+
+import { useIsPlayer } from "@/lib/hooks/useIsPlayer";
 
 import { CharacterInfo } from "../Character/CharacterInfo";
 import { Button } from "../ui/button";
-import { useIsPlayer } from "@/lib/hooks/useIsPlayer";
-import Link from "next/link";
+import { updateCharacterCheckboxes } from "@/lib/actions/character.actions";
+import { characterConditions, odds, teamwork } from "../Character/constants";
 
 interface CharacterProps {
   character: CharacterType;
@@ -29,9 +33,29 @@ export const Character = ({ character }: CharacterProps) => {
     bonds,
     image,
     player,
-    slug
+    slug,
   } = character;
   const { isPlayer } = useIsPlayer(player);
+
+  const [isPending, startTransition] = useTransition();
+  const [conditionsCheck, setConditionsCheck] = useState<boolean[]>(
+    conditions.length === characterConditions.length
+      ? conditions
+      : Array(characterConditions.length).fill(false)
+  );
+
+  const handleCheck = (type: "conditions", index: number, checked: boolean) => {
+    let updated: boolean[] = [];
+    if (type === "conditions") {
+      updated = [...conditionsCheck];
+      updated[index] = checked;
+      setConditionsCheck(updated);
+    }
+
+    startTransition(async () => {
+      await updateCharacterCheckboxes(slug, type, updated);
+    });
+  };
 
   return (
     <>
@@ -43,6 +67,8 @@ export const Character = ({ character }: CharacterProps) => {
             </Button>
           </div>
         )}
+
+        {/* HEADER */}
         <div className="relative w-full pt-[100%] col-span-2 md:col-span-1">
           <Image
             src={image || "/images/characters/placeholder.jpeg"}
@@ -92,23 +118,38 @@ export const Character = ({ character }: CharacterProps) => {
           </div>
         </div>
       </div>
+
+      {/* LEFT COLUMN */}
       <div className="grid md:gap-4 grid-cols-1 md:grid-cols-9">
         <div className="md:col-span-3 md:pr-4 md:border-r">
           {look && <CharacterInfo headline="Look" content={look} />}
           <CharacterInfo headline="Stress" content={stress} />
-          {assets && <CharacterInfo headline="Assets" content={assets} />}
-          {notes && <CharacterInfo headline="Notes" content={notes} />}
+          <CharacterInfo
+            headline="Conditions"
+            content={characterConditions}
+            isCheckBox
+            checkable={isPlayer}
+            checkedItems={conditionsCheck}
+            onToggle={(index, checked) =>
+              handleCheck("conditions", index, checked)
+            }
+          />
+          <CharacterInfo headline="Teamwork" content={teamwork} />
         </div>
+
+        {/* RIGHT COLUMN  */}
         <div className="gap-2 md:col-span-6">
           <CharacterInfo
             headline="Special Abilities"
             content={specialAbilities}
           />
-          <CharacterInfo headline="Conditions" content={conditions} />
+          <CharacterInfo headline="Change your odds" content={odds} />
           <CharacterInfo headline="Bonds" content={bonds} />
+          {assets && <CharacterInfo headline="Assets" content={assets} />}
           {background && (
             <CharacterInfo headline="Background" content={background} />
           )}
+          {notes && <CharacterInfo headline="Notes" content={notes} />}
         </div>
       </div>
     </>

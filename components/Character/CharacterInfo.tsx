@@ -1,21 +1,57 @@
-interface CharacterInfoProps {
-  headline: string;
-  content: string | string[];
+interface CharacterInfoItem {
+  label: string;
+  description?: string;
 }
 
-export const CharacterInfo = ({ headline, content }: CharacterInfoProps) => {
+type CharacterInfoContent = string | string[] | CharacterInfoItem[];
+
+interface CharacterInfoProps {
+  headline: string;
+  content: CharacterInfoContent;
+  checkable?: boolean;
+  checkedItems?: boolean[];
+  onToggle?: (index: number, checked: boolean) => void;
+  isCheckBox?: boolean;
+}
+
+export const CharacterInfo = ({
+  headline,
+  content,
+  checkable = false,
+  checkedItems = [],
+  onToggle,
+  isCheckBox = false,
+}: CharacterInfoProps) => {
+  const items = Array.isArray(content) ? content : [content];
+
   return (
-    <div className="flex flex-col border-1 mb-4 bg-accent p-2">
-      <h4 className="h3-bold text-xs uppercase text-muted-foreground mb-1">{headline}</h4>
-      {Array.isArray(content) ? (
-        content.map((item, index) => (
-          <ul key={index}>
-            <li>{item}</li>
-          </ul>
-        ))
-      ) : (
-        <span>{content}</span>
-      )}
+    <div className="flex flex-col border mb-4 bg-accent p-2">
+      <h4 className="h3-bold text-xs uppercase text-muted-foreground mb-1">
+        {headline}
+      </h4>
+      <ul className={isCheckBox ? "list-none" : ""}>
+        {items.map((item, index) => {
+          const isObject = typeof item === "object" && item !== null;
+          const label = isObject ? item.label : item;
+          const description =
+            isObject && item.description ? item.description : null;
+
+          return (
+            <li key={index}>
+              {isCheckBox && (
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 mr-1"
+                  checked={checkedItems[index] || false}
+                  onChange={(e) => onToggle?.(index, e.target.checked)}
+                  disabled={!checkable}
+                />
+              )}
+              <span title={description ?? label}>{label}</span>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 };

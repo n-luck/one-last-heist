@@ -15,9 +15,9 @@ datasource db {
 }
 
 model Character {
-  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name             String
-  slug             String   @unique(map: "character_slug_idx")
+  slug             String    @unique(map: "character_slug_idx")
   campaign         String
   image            String?
   player           String
@@ -26,12 +26,12 @@ model Character {
   secondaryRole2   String
   look             String?
   background       String?
-  stress           String[] @default([])
+  stress           String[]  @default([])
   assets           String?
   notes            String?
   specialAbilities String[]
-  conditions       String[] @default([])
-  bonds            String[] @default([])
+  conditions       Boolean[]  @default([])
+  bonds            String[]  @default([])
   pronouns         String?
 
   createdAt DateTime @default(now()) @db.Timestamp(6)

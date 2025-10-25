@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Character" ADD COLUMN     "odds" BOOLEAN[] DEFAULT ARRAY[]::BOOLEAN[],
+ADD COLUMN     "teamwork" BOOLEAN[] DEFAULT ARRAY[]::BOOLEAN[];
