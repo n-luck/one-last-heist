@@ -33,3 +33,21 @@ export const odds = [
   "Increase your risk for greater reward",
   "Flashback to set up or acquire an asset",
 ];
+
+export const characterTextFields = [
+  { name: "pronouns", label: "Pronouns" },
+  { name: "campaign", label: "Campaign*" },
+  { name: "primaryRole", label: "Primary role*", type: "select" },
+  { name: "secondaryRole", label: "Secondary role #1*", type: "select" },
+  { name: "secondaryRole2", label: "Secondary role #2*", type: "select" },
+  { name: "look", label: "Look" },
+  { name: "assets", label: "Assets" },
+];
+
+export const roleOptions = [
+  { label: "The Face", value: "The Face" },
+  { label: "The Brains", value: "The Brains" },
+  { label: "The Hacker", value: "The Hacker" },
+  { label: "The Muscle", value: "The Muscle" },
+  { label: "The Thief", value: "The Thief" },
+];

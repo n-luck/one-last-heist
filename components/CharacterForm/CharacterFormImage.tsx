@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import { toast } from "sonner";
+import { Control, UseFormReturn } from "react-hook-form";
 
 import { UploadButton } from "@/lib/uploadthing";
 import { Card, CardContent } from "../ui/card";
@@ -13,8 +13,8 @@ import {
 } from "../ui/form";
 
 interface CharacterFormImageProps {
-  control: any;
-  form: any;
+  control: Control;
+  form: UseFormReturn;
 }
 
 export const CharacterFormImage = ({

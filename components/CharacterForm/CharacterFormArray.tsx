@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { useFieldArray } from "react-hook-form";
+import { Control, FieldValues, useFieldArray, UseFormRegister } from "react-hook-form";
 
 import {
   FormControl,
@@ -14,8 +13,8 @@ import { Button } from "../ui/button";
 interface CharacterFormArrayProps {
   name: string;
   label: string;
-  control: any;
-  register: any;
+  control: Control;
+  register: UseFormRegister<FieldValues[string]>
 }
 
 export const CharacterFormArray = ({

@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import slugify from "slugify";
-
+import { UseFormReturn } from "react-hook-form";
 import {
   FormControl,
   FormField,
@@ -9,53 +7,59 @@ import {
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../ui/select";
+
+import { characterTextFields, roleOptions } from "../Character/constants";
 
 interface CharacterFormFieldsProps {
-  form: any;
+  form: UseFormReturn;
 }
 
 export const CharacterFormFields = ({ form }: CharacterFormFieldsProps) => {
-  const textFields = [
-//     { name: "name", label: "Character name*" },
-//     { name: "slug", label: "Character slug (URL)*" },
-    { name: "pronouns", label: "Pronouns" },
-    { name: "campaign", label: "Campaign*" },
-    { name: "primaryRole", label: "Primary role*" },
-    { name: "secondaryRole", label: "Secondary role #1*" },
-    { name: "secondaryRole2", label: "Secondary role #2*" },
-    { name: "look", label: "Look" },
-    { name: "assets", label: "Assets" },
-  ];
-
   return (
     <>
-      {textFields.map(({ name, label }) => (
-        <FormField
-          key={name}
-          control={form.control}
-          name={name as any}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>{label}</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  className="input-field"
-                  onBlur={() => {
-                    if (name === "slug" && !field.value) {
-                      form.setValue(
-                        "slug",
-                        slugify(form.getValues("name"), { lower: true })
-                      );
-                    }
-                  }}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-      ))}
+      {characterTextFields.map(({ name, label, type }) => {
+        return (
+          <FormField
+            key={name}
+            control={form.control}
+            name={name}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{label}</FormLabel>
+                <FormControl>
+                  {type === "select" ? (
+                    <Select
+                      value={field.value}
+                      onValueChange={(value) => field.onChange(value)}
+                    >
+                      <SelectTrigger className="rounded-none w-full">
+                        <SelectValue placeholder="Select a role" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {roleOptions.map(({ value, label }) => (
+                          <SelectItem key={value} value={value}>
+                            {label}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  ) : (
+                    <Input {...field} className="input-field" />
+                  )}
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        );
+      })}
     </>
   );
 };

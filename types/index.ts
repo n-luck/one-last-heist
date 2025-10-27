@@ -4,6 +4,5 @@ import { insertCharacterSchema } from "@/lib/validators";
 export type Character = z.infer<typeof insertCharacterSchema> & {
   id: string;
   slug: string;
-  stress: string[]
   createdAt: Date
 };
