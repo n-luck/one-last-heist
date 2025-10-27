@@ -1,5 +1,5 @@
 import { Character } from "@/types";
-import { CharacterCard } from "./CharacterCard";
+import { CharacterCard } from "./";
 
 interface CharacterProps {
   characterData: Character[];
