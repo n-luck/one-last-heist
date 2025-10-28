@@ -14,7 +14,6 @@ const CreateCharacterPage = async () => {
 
   return (
     <div className="container mx-auto space-y-4">
-      <h2 className="h2-bold">Create Character</h2>
       <CharacterForm type="create" player={session.user?.name} />
     </div>
   );

@@ -3,7 +3,6 @@ import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import { Logo } from "@/components/Header/Logo";
 import { Menu } from "@/components/Header/Menu";
-import { UserMenu } from "@/components/Header/UserMenu";
 import { redirect } from "next/navigation";
 
 export default async function UserLayout({
@@ -20,7 +19,6 @@ export default async function UserLayout({
         <div className="border-b">
           <div className="flex items-center h-16 px-4 mx-auto container">
             <Logo />
-            <UserMenu className="mx-6" />
             <div className="ml-auto items-center flex space-x-4">
               <Menu />
             </div>

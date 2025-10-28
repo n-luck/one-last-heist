@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-import { Fingerprint, MenuIcon, Swords } from "lucide-react";
+import { Fingerprint, HatGlasses, MenuIcon, Swords } from "lucide-react";
 import { ThemeToggle } from "../ThemeToggle";
 import {
   Sheet,
@@ -20,8 +20,14 @@ export const Menu = () => {
       <nav className="hidden md:flex w-full max-w-xs gap-1">
         <ThemeToggle />
         <Button asChild variant="ghost">
-          <Link href="/characters">
+          <Link href="/campaigns">
             <Swords />
+            Campaigns
+          </Link>
+        </Button>
+        <Button asChild variant="ghost">
+          <Link href="/characters">
+            <HatGlasses />
             Characters
           </Link>
         </Button>
@@ -30,8 +36,9 @@ export const Menu = () => {
       {/* MOBILE NAV */}
       <nav className="md:hidden flex-center">
         <ThemeToggle />
+        <UserButton />
         <Sheet>
-          <SheetTrigger className="align-middle">
+          <SheetTrigger className="align-middle ml-8">
             <MenuIcon />
           </SheetTrigger>
           <SheetContent className="flex flex-cold items-start p-3">
@@ -39,11 +46,16 @@ export const Menu = () => {
               <Fingerprint className="inline w-5 h-5 mr-1" /> {APP_NAME}
             </SheetTitle>
             <Button asChild variant="ghost" className="text-lg">
-              <Link href="/characters">
-                <Swords /> Characters
+              <Link href="/campaigns">
+                <Swords />
+                Campaigns
               </Link>
             </Button>
-            <UserButton />
+            <Button asChild variant="ghost" className="text-lg">
+              <Link href="/characters">
+                <HatGlasses /> Characters
+              </Link>
+            </Button>
             <SheetDescription />
           </SheetContent>
         </Sheet>

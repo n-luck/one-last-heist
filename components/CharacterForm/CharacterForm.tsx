@@ -50,6 +50,7 @@ export const CharacterForm = ({
 }: CharacterFormProps) => {
   const router = useRouter();
   const isUpdate = type === "update";
+  const formTypeCopy = type.charAt(0).toUpperCase() + type.slice(1);
 
   const schema = isUpdate ? updateCharacterSchema : insertCharacterSchema;
   const defaultValues = isUpdate
@@ -74,150 +75,153 @@ export const CharacterForm = ({
   };
 
   return (
-    <Form {...form}>
-      <form
-        className="flex flex-col gap-5"
-        method="POST"
-        onSubmit={form.handleSubmit(onSubmit)}
-      >
-        <div className="grid md:grid-cols-2 gap-5 items-start">
-          <FormField
-            control={form.control}
-            name="name"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "name"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Character name*</FormLabel>
-                <FormControl>
-                  <Input className="input-field" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="slug"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "slug"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Character slug (URL)*</FormLabel>
-                <FormControl>
-                  <div className="relative">
-                    <Input className="input-field" {...field} />
-                    <Button
-                      type="button"
-                      size="sm"
-                      className="text-xs p-1 h-auto"
-                      onClick={() => {
-                        form.setValue(
-                          "slug",
-                          slugify(form.getValues("name"), { lower: true })
-                        );
-                      }}
-                    >
-                      Generate
-                    </Button>
-                  </div>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <CharacterFormFields form={form} />
-
-          <div className="md:col-span-2 upload-field">
-            <CharacterFormImage control={form.control} form={form} />
-          </div>
-
-          <hr className="col-span-2" />
-
-          <CharacterFormArray
-            name="specialAbilities"
-            label="Special Abilities*"
-            control={form.control}
-            register={form.register}
-          />
-          <CharacterFormArray
-            name="bonds"
-            label="Bonds"
-            control={form.control}
-            register={form.register}
-          />
-          <CharacterFormArray
-            name="stress"
-            label="Stress"
-            control={form.control}
-            register={form.register}
-          />
-
-          <hr className="col-span-2" />
-
-          <FormField
-            control={form.control}
-            name="background"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "background"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Background</FormLabel>
-                <FormControl>
-                  <Textarea {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="notes"
-            render={({
-              field,
-            }: {
-              field: ControllerRenderProps<
-                z.infer<typeof insertCharacterSchema>,
-                "notes"
-              >;
-            }) => (
-              <FormItem className="w-full">
-                <FormLabel>Notes</FormLabel>
-                <FormControl>
-                  <Textarea {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <Button
-          type="submit"
-          size="lg"
-          className="button w-full md:w-md md:mx-auto mt-4"
-          disabled={form.formState.isSubmitting}
+    <>
+      <h1 className="h1-bold">{formTypeCopy} Character</h1>
+      <Form {...form}>
+        <form
+          className="flex flex-col gap-5"
+          method="POST"
+          onSubmit={form.handleSubmit(onSubmit)}
         >
-          {form.formState.isSubmitting
-            ? "Submitting..."
-            : `${type.charAt(0).toUpperCase() + type.slice(1)} Character`}
-        </Button>
-      </form>
-    </Form>
+          <div className="grid md:grid-cols-2 gap-5 items-start">
+            <FormField
+              control={form.control}
+              name="name"
+              render={({
+                field,
+              }: {
+                field: ControllerRenderProps<
+                  z.infer<typeof insertCharacterSchema>,
+                  "name"
+                >;
+              }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Character name*</FormLabel>
+                  <FormControl>
+                    <Input className="input-field" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="slug"
+              render={({
+                field,
+              }: {
+                field: ControllerRenderProps<
+                  z.infer<typeof insertCharacterSchema>,
+                  "slug"
+                >;
+              }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Character slug (URL)*</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Input className="input-field" {...field} />
+                      <Button
+                        type="button"
+                        size="sm"
+                        className="text-xs p-1 h-auto"
+                        onClick={() => {
+                          form.setValue(
+                            "slug",
+                            slugify(form.getValues("name"), { lower: true })
+                          );
+                        }}
+                      >
+                        Generate
+                      </Button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <CharacterFormFields form={form} />
+
+            <div className="md:col-span-2 upload-field">
+              <CharacterFormImage control={form.control} form={form} />
+            </div>
+
+            <hr className="col-span-2" />
+
+            <CharacterFormArray
+              name="specialAbilities"
+              label="Special Abilities*"
+              control={form.control}
+              register={form.register}
+            />
+            <CharacterFormArray
+              name="bonds"
+              label="Bonds"
+              control={form.control}
+              register={form.register}
+            />
+            <CharacterFormArray
+              name="stress"
+              label="Stress"
+              control={form.control}
+              register={form.register}
+            />
+
+            <hr className="col-span-2" />
+
+            <FormField
+              control={form.control}
+              name="background"
+              render={({
+                field,
+              }: {
+                field: ControllerRenderProps<
+                  z.infer<typeof insertCharacterSchema>,
+                  "background"
+                >;
+              }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Background</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="notes"
+              render={({
+                field,
+              }: {
+                field: ControllerRenderProps<
+                  z.infer<typeof insertCharacterSchema>,
+                  "notes"
+                >;
+              }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Notes</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <Button
+            type="submit"
+            size="lg"
+            className="button w-full md:w-md md:mx-auto mt-4"
+            disabled={form.formState.isSubmitting}
+          >
+            {form.formState.isSubmitting
+              ? "Submitting..."
+              : `${formTypeCopy} Character`}
+          </Button>
+        </form>
+      </Form>
+    </>
   );
 };

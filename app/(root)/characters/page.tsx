@@ -4,7 +4,12 @@ import { getAllCharacters } from "@/lib/actions/character.actions";
 const CharactersPage = async () => {
   const characters = await getAllCharacters();
 
-  return <Characters characters={characters} />;
+  return (
+    <>
+      <h1 className="h1-bold mb-6">Characters</h1>
+      <Characters characters={characters} />
+    </>
+  );
 };
 
 export default CharactersPage;

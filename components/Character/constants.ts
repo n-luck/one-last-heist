@@ -36,7 +36,7 @@ export const odds = [
 
 export const characterTextFields = [
   { name: "pronouns", label: "Pronouns" },
-  { name: "campaign", label: "Campaign*" },
+  { name: "campaign", label: "Campaign*", type: "select" },
   { name: "primaryRole", label: "Primary role*", type: "select" },
   { name: "secondaryRole", label: "Secondary role #1*", type: "select" },
   { name: "secondaryRole2", label: "Secondary role #2*", type: "select" },
@@ -50,4 +50,11 @@ export const roleOptions = [
   { label: "The Hacker", value: "The Hacker" },
   { label: "The Muscle", value: "The Muscle" },
   { label: "The Thief", value: "The Thief" },
+];
+
+export const campaignOptions = [
+  { label: "One Last Heist", value: "One Last Heist" },
+  { label: "Save The Hacker", value: "Save The Hacker" },
+  { label: "Electric Blueberries", value: "Electric Blueberries" },
+  { label: "Test", value: "Test" },
 ];

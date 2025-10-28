@@ -15,7 +15,11 @@ import {
   SelectValue,
 } from "../ui/select";
 
-import { characterTextFields, roleOptions } from "../Character/constants";
+import {
+  characterTextFields,
+  roleOptions,
+  campaignOptions,
+} from "../Character/constants";
 
 interface CharacterFormFieldsProps {
   form: UseFormReturn;
@@ -25,6 +29,8 @@ export const CharacterFormFields = ({ form }: CharacterFormFieldsProps) => {
   return (
     <>
       {characterTextFields.map(({ name, label, type }) => {
+        const options = name === "campaign" ? campaignOptions : roleOptions
+
         return (
           <FormField
             key={name}
@@ -43,7 +49,7 @@ export const CharacterFormFields = ({ form }: CharacterFormFieldsProps) => {
                         <SelectValue placeholder="Select a role" />
                       </SelectTrigger>
                       <SelectContent>
-                        {roleOptions.map(({ value, label }) => (
+                        {options.map(({ value, label }) => (
                           <SelectItem key={value} value={value}>
                             {label}
                           </SelectItem>

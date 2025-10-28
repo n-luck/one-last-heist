@@ -107,3 +107,23 @@ export async function updateCharacterCheckboxes(
     return { success: false, message: formatError(error) };
   }
 }
+
+export async function getAllCampaigns() {
+  const data = prisma.character.groupBy({
+    by: ["campaign"],
+    _count: true,
+  });
+
+  return data;
+}
+
+export async function getCharactersByCampaign(campaign: string) {
+  const data = prisma.character.findMany({
+    where: {
+      campaign: campaign,
+    },
+    orderBy: { name: "asc" },
+  });
+
+  return data;
+}

@@ -72,16 +72,7 @@ export const UserButton = async () => {
               variant="ghost"
               asChild
             >
-              <Link href="/user">Characters</Link>
-            </Button>
-          </DropdownMenuItem>
-          <DropdownMenuItem className="p-0 mb-1">
-            <Button
-              className="w-full py-4 px-2 h-4 justify-start"
-              variant="ghost"
-              asChild
-            >
-              <Link href="/campaigns">Campaigns (WIP)</Link>
+              <Link href="/user">My Characters</Link>
             </Button>
           </DropdownMenuItem>
           <DropdownMenuItem className="p-0 mb-1">

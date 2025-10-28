@@ -313,11 +313,11 @@ html.dark .upload-field .text-white {
   }
 }
 
-p a {
+p a, li a {
   text-decoration: underline;
 }
 
-p a:hover {
+p a:hover, li a:hover {
   text-decoration: none;
 }
 
