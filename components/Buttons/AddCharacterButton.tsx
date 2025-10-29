@@ -10,7 +10,7 @@ export const AddCharacterButton = () => {
   if (!isLoggedIn) return undefined;
 
   return (
-    <Button asChild>
+    <Button asChild variant="gradient">
       <Link href="/characters/create">Add new character</Link>
     </Button>
   );

@@ -10,7 +10,7 @@ const CampaignsPage = async () => {
 
   return (
     <>
-      <h1 className="h1-bold mb-8">Campaigns</h1>
+      <h1 className="h1-bold">Campaigns</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {campaigns.map(async (campaign) => {
           const characters = await getCharactersByCampaign(campaign.campaign);

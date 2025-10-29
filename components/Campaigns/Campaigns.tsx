@@ -1,6 +1,6 @@
 import { Character } from "@/types";
 import { Card, CardContent, CardHeader } from "../ui/card";
-import Link from "next/link";
+import { Link } from "@/components/Link";
 
 interface CampaignsProps {
   campaign: string;

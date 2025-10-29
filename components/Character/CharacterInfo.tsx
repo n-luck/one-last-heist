@@ -26,7 +26,7 @@ export const CharacterInfo = ({
 
   return (
     <div className="flex flex-col border mb-4 bg-accent p-2">
-      <h4 className="h3-bold text-xs uppercase text-muted-foreground mb-1">
+      <h4 className="h3-bold text-xs uppercase text-muted-foreground dark:text-cyan-500 mb-1">
         {headline}
       </h4>
       <ul className={isCheckBox ? "list-none" : ""}>

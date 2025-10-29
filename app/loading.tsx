@@ -1,6 +1,3 @@
-import Image from "next/image";
-import loader from "@/assets/loader.gif";
-
 const LoadingPage = () => {
   return (
     <div
@@ -12,7 +9,9 @@ const LoadingPage = () => {
         width: "100vw",
       }}
     >
-      <Image src={loader} height={150} width={150} alt="Loading..." />
+      <div className="flex justify-center">
+        <div className="w-16 h-16 border-4 border-teal-600 border-t-transparent rounded-full animate-spin"></div>
+      </div>
     </div>
   );
 };

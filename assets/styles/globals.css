@@ -62,12 +62,13 @@
 }
 
 @layer base {
-  ul, ol {
+  ul,
+  ol {
     list-style: disc;
     list-style-position: inside;
   }
 
-   li ul {
+  li ul {
     margin-left: 0.75rem;
   }
 }
@@ -89,7 +90,7 @@
 }
 
 @utility h1-bold {
-  @apply font-bold text-3xl lg:text-5xl;
+  @apply font-bold text-3xl lg:text-5xl bg-clip-text text-transparent bg-gradient-to-r from-cyan-600 to-fuchsia-500 bg-[length:200%_200%] transition-all duration-500 ease-in-out [animation:none] hover:[animation:gradient_3s_ease_infinite] mb-8 pb-1;
 }
 
 @utility h2-bold {
@@ -313,15 +314,20 @@ html.dark .upload-field .text-white {
   }
 }
 
-p a, li a {
-  text-decoration: underline;
-}
-
-p a:hover, li a:hover {
-  text-decoration: none;
-}
-
 /* Uploadthing button text */
 html.light .upload-field .text-white {
   color: #000 !important;
+}
+
+/* Gradient button animation */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

@@ -37,7 +37,7 @@ export const Character = ({ character }: CharacterProps) => {
   } = character;
   const { isPlayer } = useIsPlayer(player);
 
-  const [isPending, startTransition] = useTransition();
+  const [_, startTransition] = useTransition();
   const [conditionsCheck, setConditionsCheck] = useState<boolean[]>(
     conditions.length === characterConditions.length
       ? conditions
@@ -62,7 +62,7 @@ export const Character = ({ character }: CharacterProps) => {
       <div className="grid grid-cols-9 gap-4 border-b pb-4 mb-4 relative">
         {isPlayer && (
           <div className="absolute right-0 top-0">
-            <Button asChild>
+            <Button asChild variant="gradient">
               <Link href={`/characters/${slug}/edit`}>Edit</Link>
             </Button>
           </div>
@@ -80,37 +80,37 @@ export const Character = ({ character }: CharacterProps) => {
           />
         </div>
         <div className="col-span-6 md:col-span-8">
-          <h1 className="h1-bold mb-1">{name}</h1>
-          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-8 gap-1">
+          <h1 className="h1-bold pb-1 mb-1">{name}</h1>
+          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-8 gap-x-1 gap-y-2 md:gap-1">
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground dark:text-cyan-500">
                 Pronouns
               </h4>
               <span>{pronouns}</span>
             </div>
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground dark:text-cyan-500">
                 Primary Role
               </h4>
               <span>{primaryRole}</span>
-              <span className="text-xs text-muted-foreground">(add +3d)</span>
+              <span className="text-xs text-muted-foreground dark:text-cyan-500">(add +3d)</span>
             </div>
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground dark:text-cyan-500">
                 Secondary Role
               </h4>
               <span>{secondaryRole}</span>
-              <span className="text-xs text-muted-foreground">(add +2d)</span>
+              <span className="text-xs text-muted-foreground dark:text-cyan-500">(add +2d)</span>
             </div>
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground dark:text-cyan-500">
                 Secondary Role
               </h4>
               <span>{secondaryRole2}</span>
-              <span className="text-xs text-muted-foreground">(add +2d)</span>
+              <span className="text-xs text-muted-foreground dark:text-cyan-500">(add +2d)</span>
             </div>
             <div className="flex flex-col">
-              <h4 className="h3-bold text-xs uppercase text-muted-foreground">
+              <h4 className="h3-bold text-xs uppercase text-muted-foreground dark:text-cyan-500">
                 Player
               </h4>
               <span>{player}</span>

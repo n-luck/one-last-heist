@@ -34,6 +34,7 @@ import { Textarea } from "../ui/textarea";
 import { CharacterFormFields } from "./CharacterFormFields";
 import { CharacterFormArray } from "./CharacterFormArray";
 import { CharacterFormImage } from "./CharacterFormImage";
+import Link from "next/link";
 
 interface CharacterFormProps {
   character?: Character;
@@ -213,12 +214,26 @@ export const CharacterForm = ({
           <Button
             type="submit"
             size="lg"
-            className="button w-full md:w-md md:mx-auto mt-4"
+            className="button w-full md:mx-auto md:w-md mt-4"
             disabled={form.formState.isSubmitting}
+            variant="gradient"
           >
             {form.formState.isSubmitting
               ? "Submitting..."
               : `${formTypeCopy} Character`}
+          </Button>
+          <Button
+            size="lg"
+            className="button w-full md:mx-auto md:w-md"
+            disabled={form.formState.isSubmitting}
+            variant="ghost"
+            asChild
+          >
+            <Link
+              href="/user"
+            >
+              Cancel
+            </Link>
           </Button>
         </form>
       </Form>

@@ -37,13 +37,13 @@ export const CharacterFormArray = ({
               {fields.map((field, index) => (
                 <div key={field.id} className="flex gap-2 items-center">
                   <Input {...register(`${name}.${index}`)} />
-                  <Button type="button" size="sm" onClick={() => remove(index)}>
+                  <Button type="button" size="sm" onClick={() => remove(index)} variant="ghost">
                     Remove
                   </Button>
                 </div>
               ))}
               <Button type="button" size="sm" onClick={() => append("")}>
-                Add {label.slice(0, -1)}
+                Add {label}
               </Button>
             </div>
           </FormControl>
