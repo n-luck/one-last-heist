@@ -1,3 +1,5 @@
+"use client"
+
 import { UseFormReturn } from "react-hook-form";
 import {
   FormControl,
@@ -18,18 +20,20 @@ import {
 import {
   characterTextFields,
   roleOptions,
-  campaignOptions,
 } from "../Character/constants";
+import { useCampaigns } from "@/lib/hooks/useCampaigns";
 
 interface CharacterFormFieldsProps {
   form: UseFormReturn;
 }
 
-export const CharacterFormFields = ({ form }: CharacterFormFieldsProps) => {
+export const FormFields = ({ form }: CharacterFormFieldsProps) => {
+  const campaigns = useCampaigns()
+
   return (
     <>
       {characterTextFields.map(({ name, label, type }) => {
-        const options = name === "campaign" ? campaignOptions : roleOptions
+        const options = name === "campaign" ? campaigns : roleOptions
 
         return (
           <FormField

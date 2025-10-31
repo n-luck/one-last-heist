@@ -5,6 +5,7 @@ import { Fingerprint, HatGlasses, MenuIcon, Swords } from "lucide-react";
 import { ThemeToggle } from "../ThemeToggle";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetDescription,
   SheetTitle,
@@ -42,20 +43,32 @@ export const Menu = () => {
             <MenuIcon />
           </SheetTrigger>
           <SheetContent className="flex flex-cold items-start p-3">
-            <SheetTitle className="flex-center text-xl pb-3 border-b">
-              <Fingerprint className="inline w-5 h-5 mr-1" /> {APP_NAME}
+            <SheetTitle className="pb-3 border-b">
+              <SheetClose asChild>
+                <Button asChild variant="ghost">
+                  <Link href="/">
+                    <span className="flex-center text-lg ">
+                      <Fingerprint className="inline mr-1 text-cyan-600"/> {APP_NAME}
+                    </span>
+                  </Link>
+                </Button>
+              </SheetClose>
             </SheetTitle>
-            <Button asChild variant="ghost" className="text-lg">
-              <Link href="/campaigns">
-                <Swords />
-                Campaigns
-              </Link>
-            </Button>
-            <Button asChild variant="ghost" className="text-lg">
-              <Link href="/characters">
-                <HatGlasses /> Characters
-              </Link>
-            </Button>
+            <SheetClose asChild>
+              <Button asChild variant="ghost" className="text-lg">
+                <Link href="/campaigns">
+                  <Swords />
+                  Campaigns
+                </Link>
+              </Button>
+            </SheetClose>
+            <SheetClose asChild>
+              <Button asChild variant="ghost" className="text-lg">
+                <Link href="/characters">
+                  <HatGlasses /> Characters
+                </Link>
+              </Button>
+            </SheetClose>
             <SheetDescription />
           </SheetContent>
         </Sheet>

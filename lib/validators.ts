@@ -51,3 +51,15 @@ export const updateProfileSchema = z.object({
   name: z.string().min(3, "Name must be at least 3 characters long."),
   email: z.string().min(3, "Name must be at least 3 characters long."),
 });
+
+export const insertCampaignSchema = z.object({
+  name: z.string().min(3, "Name must be at least 3 characters."),
+  slug: z.string().min(3, "Slug must be at least 3 characters."),
+  players: z.array(z.string()).default([]),
+  image: z.string().nullable(),
+  notes: z.string().nullable(),
+});
+
+export const updateCampaignSchema = insertCampaignSchema.extend({
+  id: z.string().min(1, "Id is required."),
+});

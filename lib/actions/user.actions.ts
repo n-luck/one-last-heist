@@ -7,7 +7,7 @@ import { auth, signIn, signOut } from "@/auth";
 
 import { signInFormSchema } from "../validators";
 import { signUpFormSchema } from "../validators";
-import { formatError } from "../utils";
+import { convertToPlainObject, formatError } from "../utils";
 
 export async function signInWithCredentials(
   prevState: unknown,
@@ -104,4 +104,12 @@ export async function updateUserProfile(user: { name: string; email: string }) {
   } catch (error) {
     return { success: false, message: formatError(error) };
   }
+}
+
+export async function getAllUsers() {
+  const data = await prisma.user.findMany({
+    orderBy: { name: "asc" },
+  });
+
+  return convertToPlainObject(data);
 }

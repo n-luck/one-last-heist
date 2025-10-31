@@ -10,19 +10,19 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 
-interface CharacterFormArrayProps {
+interface FormArrayProps {
   name: string;
   label: string;
   control: Control;
   register: UseFormRegister<FieldValues[string]>
 }
 
-export const CharacterFormArray = ({
+export const FormArray = ({
   name,
   label,
   control,
   register,
-}: CharacterFormArrayProps) => {
+}: FormArrayProps) => {
   const { fields, append, remove } = useFieldArray({ control, name });
 
   return (

@@ -23,3 +23,11 @@ export const characterDefaultValues = {
   bonds: [],
   pronouns: "",
 };
+
+export const campaignDefaultValues = {
+  name: "",
+  slug: "",
+  players: [],
+  image: "/images/characters/placeholder.jpeg",
+  notes: "",
+};

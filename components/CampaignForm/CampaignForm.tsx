@@ -9,16 +9,14 @@ import { ControllerRenderProps, useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "sonner";
 import slugify from "slugify";
+import Link from "next/link";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertCharacterSchema, updateCharacterSchema } from "@/lib/validators";
-import {
-  createCharacter,
-  updateCharacter,
-} from "@/lib/actions/character.actions";
+import { insertCampaignSchema } from "@/lib/validators";
+import { createCampaign } from "@/lib/actions/campaigns.actions";
+import { campaignDefaultValues } from "@/lib/constants";
+import { Campaign } from "@/types";
 
-import { Character } from "@/types";
-import { characterDefaultValues } from "@/lib/constants";
 import {
   Form,
   FormControl,
@@ -31,32 +29,29 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 
-import { FormFields } from "@/components/FormElements/FormFields";
-import { FormArray } from "@/components/FormElements/FormArray";
-import { FormImage } from "@/components/FormElements/FormImage";
-import Link from "next/link";
+import { FormImage } from "../FormElements/FormImage";
+import { CampaignPlayerSelect } from "./CampaignPlayerSelect";
 
 interface CharacterFormProps {
-  character?: Character;
-  characterId?: string;
+  campaign?: Campaign;
+//   campaignId?: string;
   type: "create" | "update";
-  player?: string;
+  players: [];
 }
 
-export const CharacterForm = ({
-  character,
-  characterId = "",
+export const CampaignForm = ({
+  campaign,
+//   campaignId = "",
   type = "create",
-  player = "Player",
+  players,
 }: CharacterFormProps) => {
   const router = useRouter();
   const isUpdate = type === "update";
   const formTypeCopy = type.charAt(0).toUpperCase() + type.slice(1);
 
-  const schema = isUpdate ? updateCharacterSchema : insertCharacterSchema;
-  const defaultValues = isUpdate
-    ? character
-    : { ...characterDefaultValues, player };
+  //   const schema = isUpdate ? updateCharacterSchema : insertCampaignSchema;
+  const schema = insertCampaignSchema;
+  const defaultValues = isUpdate ? campaign : { ...campaignDefaultValues };
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -64,20 +59,21 @@ export const CharacterForm = ({
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (values) => {
-    const action = isUpdate
-      ? updateCharacter({ ...values, id: characterId })
-      : createCharacter(values);
+    //     const action = isUpdate
+    //       ? updateCharacter({ ...values, id: campaignId })
+    //       : createCampaign(values);
+    const action = createCampaign(values);
 
     const res = await action;
     if (!res.success) return toast.error(res.message);
 
     toast.success(res.message);
-    router.push("/user");
+    router.push("/campaigns");
   };
 
   return (
     <>
-      <h1 className="h1-bold">{formTypeCopy} Character</h1>
+      <h1 className="h1-bold">{formTypeCopy} Campaign</h1>
       <Form {...form}>
         <form
           className="flex flex-col gap-5"
@@ -92,12 +88,12 @@ export const CharacterForm = ({
                 field,
               }: {
                 field: ControllerRenderProps<
-                  z.infer<typeof insertCharacterSchema>,
+                  z.infer<typeof insertCampaignSchema>,
                   "name"
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Character name*</FormLabel>
+                  <FormLabel>Campaign name*</FormLabel>
                   <FormControl>
                     <Input className="input-field" {...field} />
                   </FormControl>
@@ -112,12 +108,12 @@ export const CharacterForm = ({
                 field,
               }: {
                 field: ControllerRenderProps<
-                  z.infer<typeof insertCharacterSchema>,
+                  z.infer<typeof insertCampaignSchema>,
                   "slug"
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Character slug (URL)*</FormLabel>
+                  <FormLabel>Campaign slug (URL)*</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Input className="input-field" {...field} />
@@ -141,7 +137,7 @@ export const CharacterForm = ({
               )}
             />
 
-            <FormFields form={form} />
+            <CampaignPlayerSelect form={form} players={players} />
 
             <div className="md:col-span-2 upload-field">
               <FormImage control={form.control} form={form} />
@@ -149,47 +145,6 @@ export const CharacterForm = ({
 
             <hr className="md:col-span-2" />
 
-            <FormArray
-              name="specialAbilities"
-              label="Special Abilities*"
-              control={form.control}
-              register={form.register}
-            />
-            <FormArray
-              name="bonds"
-              label="Bonds"
-              control={form.control}
-              register={form.register}
-            />
-            <FormArray
-              name="stress"
-              label="Stress"
-              control={form.control}
-              register={form.register}
-            />
-
-            <hr className="md:col-span-2" />
-
-            <FormField
-              control={form.control}
-              name="background"
-              render={({
-                field,
-              }: {
-                field: ControllerRenderProps<
-                  z.infer<typeof insertCharacterSchema>,
-                  "background"
-                >;
-              }) => (
-                <FormItem className="w-full">
-                  <FormLabel>Background</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="notes"
@@ -197,7 +152,7 @@ export const CharacterForm = ({
                 field,
               }: {
                 field: ControllerRenderProps<
-                  z.infer<typeof insertCharacterSchema>,
+                  z.infer<typeof insertCampaignSchema>,
                   "notes"
                 >;
               }) => (
@@ -221,7 +176,7 @@ export const CharacterForm = ({
           >
             {form.formState.isSubmitting
               ? "Submitting..."
-              : `${formTypeCopy} Character`}
+              : `${formTypeCopy} Campaign`}
           </Button>
           <Button
             size="lg"

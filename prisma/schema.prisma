@@ -30,7 +30,7 @@ model Character {
   assets           String?
   notes            String?
   specialAbilities String[]
-  conditions       Boolean[]  @default([])
+  conditions       Boolean[] @default([])
   bonds            String[]  @default([])
   pronouns         String?
 
@@ -90,4 +90,15 @@ model VerificationToken {
   expires    DateTime
 
   @@id([identifier, token])
+}
+
+model Campaign {
+  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name             String
+  slug             String    @unique(map: "campaign_slug_idx")
+  players          String[]  @default([])
+  image            String?
+  notes            String?
+
+  createdAt DateTime @default(now()) @db.Timestamp(6)
 }

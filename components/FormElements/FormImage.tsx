@@ -12,15 +12,15 @@ import {
   FormLabel,
 } from "../ui/form";
 
-interface CharacterFormImageProps {
+interface FormImageProps {
   control: Control;
   form: UseFormReturn;
 }
 
-export const CharacterFormImage = ({
+export const FormImage = ({
   control,
   form,
-}: CharacterFormImageProps) => {
+}: FormImageProps) => {
   const image = form.watch("image");
 
   return (

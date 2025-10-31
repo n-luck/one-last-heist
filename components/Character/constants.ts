@@ -51,10 +51,3 @@ export const roleOptions = [
   { label: "The Muscle", value: "The Muscle" },
   { label: "The Thief", value: "The Thief" },
 ];
-
-export const campaignOptions = [
-  { label: "One Last Heist", value: "One Last Heist" },
-  { label: "Save The Hacker", value: "Save The Hacker" },
-  { label: "Electric Blueberries", value: "Electric Blueberries" },
-  { label: "Test", value: "Test" },
-];

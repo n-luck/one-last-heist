@@ -1,32 +1,36 @@
 import { Fragment } from "react";
 import { Campaigns } from "@/components/Campaigns";
-import {
-  getAllCampaigns,
-  getCharactersByCampaign,
-} from "@/lib/actions/character.actions";
+import { getCharactersByCampaign } from "@/lib/actions/character.actions";
+import { getAllCampaigns } from "@/lib/actions/campaigns.actions";
+import { AddCampaignButton } from "@/components/Buttons/AddCampaignButton";
+import { Campaign } from "@/types";
 
 const CampaignsPage = async () => {
   const campaigns = await getAllCampaigns();
 
   return (
-    <>
+    <div className="relative">
       <h1 className="h1-bold">Campaigns</h1>
+      <div className="absolute top-0 md:top-2 right-0">
+        <AddCampaignButton />
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {campaigns.map(async (campaign) => {
-          const characters = await getCharactersByCampaign(campaign.campaign);
+        {campaigns.map(async (campaign: Campaign) => {
+          const characters = await getCharactersByCampaign(campaign.name);
 
           return (
-            <Fragment key={campaign.campaign}>
+            <Fragment key={campaign.name}>
               <Campaigns
-                campaign={campaign.campaign}
-                count={campaign._count}
+                campaign={campaign.name}
+                count={characters.length}
                 characters={characters}
+                image={campaign.image ?? undefined}
               />
             </Fragment>
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
