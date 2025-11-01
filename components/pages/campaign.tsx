@@ -26,8 +26,7 @@ export const Campaign = ({ campaign, characters }: CampaignProps) => {
           />
         </div>
       )}
-      <h2 className="h2-bold capitalize text-4xl">Active characters</h2>
-      {characters && <CharacterList characterData={characters} />}
+      {characters && <CharacterList title="Active characters" characterData={characters} />}
     </div>
   );
 };
