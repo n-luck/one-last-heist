@@ -25,6 +25,7 @@ const CampaignsPage = async () => {
                 count={characters.length}
                 characters={characters}
                 image={campaign.image ?? undefined}
+                slug={campaign.slug}
               />
             </Fragment>
           );

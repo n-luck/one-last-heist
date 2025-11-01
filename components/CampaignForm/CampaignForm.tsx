@@ -4,6 +4,7 @@
 
 "use client";
 
+import React from "react";
 import { useRouter } from "next/navigation";
 import { ControllerRenderProps, useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -32,19 +33,19 @@ import { Textarea } from "../ui/textarea";
 import { FormImage } from "../FormElements/FormImage";
 import { CampaignPlayerSelect } from "./CampaignPlayerSelect";
 
-interface CharacterFormProps {
+export interface CampaignFormProps {
   campaign?: Campaign;
-//   campaignId?: string;
+  //   campaignId?: string;
   type: "create" | "update";
   players: [];
 }
 
 export const CampaignForm = ({
   campaign,
-//   campaignId = "",
+  //   campaignId = "",
   type = "create",
   players,
-}: CharacterFormProps) => {
+}: CampaignFormProps) => {
   const router = useRouter();
   const isUpdate = type === "update";
   const formTypeCopy = type.charAt(0).toUpperCase() + type.slice(1);
@@ -93,9 +94,13 @@ export const CampaignForm = ({
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Campaign name*</FormLabel>
+                  <FormLabel htmlFor="campaign-name">Campaign name*</FormLabel>
                   <FormControl>
-                    <Input className="input-field" {...field} />
+                    <Input
+                      className="input-field"
+                      {...field}
+                      id="campaign-name"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -113,10 +118,16 @@ export const CampaignForm = ({
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Campaign slug (URL)*</FormLabel>
+                  <FormLabel htmlFor="campaign-slug">
+                    Campaign slug (URL)*
+                  </FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Input className="input-field" {...field} />
+                      <Input
+                        className="input-field"
+                        {...field}
+                        id="campaign-slug"
+                      />
                       <Button
                         type="button"
                         size="sm"
@@ -157,9 +168,9 @@ export const CampaignForm = ({
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Notes</FormLabel>
+                  <FormLabel htmlFor="notes">Notes</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea {...field} id="notes" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

@@ -29,7 +29,7 @@ export const FormImage = ({
       name="image"
       render={() => (
         <FormItem>
-          <FormLabel>Image</FormLabel>
+          <FormLabel htmlFor="image">Image</FormLabel>
           <Card className="rounded-none">
             <CardContent className="space-y-2">
               {image && image !== "/images/characters/placeholder.jpeg" && (
@@ -41,7 +41,7 @@ export const FormImage = ({
                   className="w-20 h-20 object-cover"
                 />
               )}
-              <FormControl>
+              <FormControl id="image">
                 <UploadButton
                   endpoint="imageUploader"
                   onClientUploadComplete={(res) => {

@@ -31,3 +31,10 @@ export async function createCampaign(
     return { success: false, message: formatError(error) };
   }
 }
+export async function getCampaignBySlug(slug: string) {
+  return await prisma.campaign.findFirst({
+    where: {
+      slug: slug,
+    },
+  });
+}

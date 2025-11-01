@@ -31,12 +31,12 @@ export const FormArray = ({
       name={name}
       render={() => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel htmlFor={label}>{label}</FormLabel>
           <FormControl>
             <div className="flex flex-col gap-2">
               {fields.map((field, index) => (
                 <div key={field.id} className="flex gap-2 items-center">
-                  <Input {...register(`${name}.${index}`)} />
+                  <Input {...register(`${name}.${index}`)} id={label} />
                   <Button type="button" size="sm" onClick={() => remove(index)} variant="ghost">
                     Remove
                   </Button>

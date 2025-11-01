@@ -42,14 +42,14 @@ export const FormFields = ({ form }: CharacterFormFieldsProps) => {
             name={name}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>{label}</FormLabel>
+                <FormLabel htmlFor={label}>{label}</FormLabel>
                 <FormControl>
                   {type === "select" ? (
                     <Select
                       value={field.value}
                       onValueChange={(value) => field.onChange(value)}
                     >
-                      <SelectTrigger className="rounded-none w-full">
+                      <SelectTrigger className="rounded-none w-full" id={label}>
                         <SelectValue placeholder="Select a role" />
                       </SelectTrigger>
                       <SelectContent>

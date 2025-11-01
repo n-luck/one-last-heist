@@ -4,6 +4,7 @@
 
 "use client";
 
+import React from "react";
 import { useRouter } from "next/navigation";
 import { ControllerRenderProps, useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
@@ -36,7 +37,7 @@ import { FormArray } from "@/components/FormElements/FormArray";
 import { FormImage } from "@/components/FormElements/FormImage";
 import Link from "next/link";
 
-interface CharacterFormProps {
+export interface CharacterFormProps {
   character?: Character;
   characterId?: string;
   type: "create" | "update";
@@ -83,6 +84,7 @@ export const CharacterForm = ({
           className="flex flex-col gap-5"
           method="POST"
           onSubmit={form.handleSubmit(onSubmit)}
+          data-testid="character-form"
         >
           <div className="grid md:grid-cols-2 gap-5 items-start">
             <FormField
@@ -97,9 +99,9 @@ export const CharacterForm = ({
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Character name*</FormLabel>
+                  <FormLabel htmlFor="name">Character name*</FormLabel>
                   <FormControl>
-                    <Input className="input-field" {...field} />
+                    <Input className="input-field" {...field} id="name" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -117,10 +119,10 @@ export const CharacterForm = ({
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Character slug (URL)*</FormLabel>
+                  <FormLabel htmlFor="slug">Character slug (URL)*</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Input className="input-field" {...field} />
+                      <Input className="input-field" {...field} id="slug" />
                       <Button
                         type="button"
                         size="sm"
@@ -182,9 +184,9 @@ export const CharacterForm = ({
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Background</FormLabel>
+                  <FormLabel htmlFor="background">Background</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea {...field} id="background" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -202,9 +204,9 @@ export const CharacterForm = ({
                 >;
               }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Notes</FormLabel>
+                  <FormLabel htmlFor="notes">Notes</FormLabel>
                   <FormControl>
-                    <Textarea {...field} />
+                    <Textarea {...field} id="notes" />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
