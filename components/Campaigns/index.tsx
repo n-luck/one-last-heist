@@ -1,1 +1,1 @@
-export { Campaigns } from "./Campaigns";
+export { CampaignCard } from "./CampaignCard";

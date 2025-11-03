@@ -11,11 +11,11 @@ export const Campaign = ({ campaign, characters }: CampaignProps) => {
   const { name, image, notes } = campaign;
 
   return (
-    <section className="space-y-8">
+    <section className="flex flex-col space-y-2">
       <h1 className="h1-bold mb-4">{name}</h1>
       <p>{notes}</p>
       {image && (
-        <div className="relative w-md pt-[20%]">
+        <div className="relative md:w-md pt-[20%]">
           <Image
             src={image || "/images/characters/placeholder.jpeg"}
             alt={name}

@@ -13,11 +13,7 @@ const CampaignPage = async (props: { params: Promise<{ slug: string }> }) => {
 
   const characters = await getCharactersByCampaign(campaign.name);
 
-  return (
-    <section className="flex flex-col gap-2">
-      <Campaign campaign={campaign} characters={characters} />
-    </section>
-  );
+  return <Campaign campaign={campaign} characters={characters} />;
 };
 
 export default CampaignPage;

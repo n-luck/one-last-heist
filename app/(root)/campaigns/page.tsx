@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Campaigns } from "@/components/Campaigns";
+import { CampaignCard } from "@/components/Campaigns";
 import { getCharactersByCampaign } from "@/lib/actions/character.actions";
 import { getAllCampaigns } from "@/lib/actions/campaigns.actions";
 import { AddCampaignButton } from "@/components/Buttons/AddCampaignButton";
@@ -20,7 +20,7 @@ const CampaignsPage = async () => {
 
           return (
             <Fragment key={campaign.name}>
-              <Campaigns
+              <CampaignCard
                 campaign={campaign.name}
                 count={characters.length}
                 characters={characters}

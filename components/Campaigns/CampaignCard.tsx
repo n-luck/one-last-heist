@@ -5,7 +5,7 @@ import { Character } from "@/types";
 import { Card, CardContent, CardHeader } from "../ui/card";
 import { GradientBorder } from "../GradientBorder";
 
-interface CampaignsProps {
+interface CampaignCardProps {
   campaign: string;
   count: number;
   characters?: Character[];
@@ -13,13 +13,13 @@ interface CampaignsProps {
   slug: string;
 }
 
-export const Campaigns = ({
+export const CampaignCard = ({
   campaign,
   count,
   characters,
   image,
   slug,
-}: CampaignsProps) => {
+}: CampaignCardProps) => {
   return (
     <Link href={`campaigns/${slug}`}>
       <GradientBorder>
