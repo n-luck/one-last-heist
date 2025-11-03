@@ -6,13 +6,13 @@ const CharactersPage = async () => {
   const characters = await getAllCharacters();
 
   return (
-    <div className="relative">
+    <section className="relative">
       <h1 className="h1-bold">Characters</h1>
       <div className="absolute right-0 top-0 md:top-2">
         <AddCharacterButton />
       </div>
       <Characters characters={characters} />
-    </div>
+    </section>
   );
 };
 

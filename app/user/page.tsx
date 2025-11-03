@@ -10,7 +10,7 @@ const UserPage = async () => {
   const characters = await getCharactersByPlayer(player);
 
   return (
-    <div className="relative">
+    <section className="relative">
       <h1 className="h1-bold">My Characters</h1>
       <div className="absolute right-0 top-1">
         <AddCharacterButton />
@@ -18,7 +18,7 @@ const UserPage = async () => {
       {characters && (
         <CharacterList title="Character list" characterData={characters} />
       )}
-    </div>
+    </section>
   );
 };
 

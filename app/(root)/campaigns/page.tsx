@@ -9,7 +9,7 @@ const CampaignsPage = async () => {
   const campaigns = await getAllCampaigns();
 
   return (
-    <div className="relative">
+    <section className="relative">
       <h1 className="h1-bold">Campaigns</h1>
       <div className="absolute top-0 md:top-2 right-0">
         <AddCampaignButton />
@@ -31,7 +31,7 @@ const CampaignsPage = async () => {
           );
         })}
       </div>
-    </div>
+    </section>
   );
 };
 

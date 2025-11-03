@@ -24,9 +24,9 @@ export default async function UserLayout({
             </div>
           </div>
         </div>
-        <div className="flex-1 space-y-4 p-4 container mx-auto">
+        <main className="flex-1 space-y-4 p-4 container mx-auto">
           {children}
-        </div>
+        </main>
       </div>
     </SessionProvider>
   );

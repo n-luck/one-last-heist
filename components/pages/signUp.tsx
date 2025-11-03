@@ -10,7 +10,7 @@ import {
 
 export const SignUpPage = () => {
   return (
-    <div className="w-full max-w-md mx-auto p-4">
+    <section className="w-full max-w-md mx-auto p-4">
       <Card>
         <CardHeader className="gap-4">
           <CardTitle className="text-center h1-bold">Sign up</CardTitle>
@@ -22,6 +22,6 @@ export const SignUpPage = () => {
           <SignUp />
         </CardContent>
       </Card>
-    </div>
+    </section>
   );
 };

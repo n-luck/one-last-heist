@@ -11,7 +11,7 @@ export const Campaign = ({ campaign, characters }: CampaignProps) => {
   const { name, image, notes } = campaign;
 
   return (
-    <div className="space-y-8">
+    <section className="space-y-8">
       <h1 className="h1-bold mb-4">{name}</h1>
       <p>{notes}</p>
       {image && (
@@ -27,6 +27,6 @@ export const Campaign = ({ campaign, characters }: CampaignProps) => {
         </div>
       )}
       {characters && <CharacterList title="Active characters" characterData={characters} />}
-    </div>
+    </section>
   );
 };

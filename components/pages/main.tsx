@@ -12,7 +12,7 @@ interface MainPageProps {
 
 export const MainPage = ({ latestCharacters }: MainPageProps) => {
   return (
-    <>
+    <section>
       <Intro />
       <CharacterList
         characterData={latestCharacters}
@@ -22,6 +22,6 @@ export const MainPage = ({ latestCharacters }: MainPageProps) => {
       <div className="flex justify-center gap-6 mt-10">
         <AddCharacterButton /> <AddCampaignButton />
       </div>
-    </>
+    </section>
   );
 };

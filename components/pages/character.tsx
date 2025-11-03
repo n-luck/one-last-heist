@@ -59,7 +59,7 @@ export const Character = ({ character }: CharacterProps) => {
 
   return (
     <>
-      <div className="grid grid-cols-9 gap-4 border-b pb-4 mb-4 relative">
+      <section className="grid grid-cols-9 gap-4 border-b pb-4 mb-4 relative">
         {isPlayer && (
           <div className="absolute right-0 top-0">
             <Button asChild variant="gradient">
@@ -117,10 +117,10 @@ export const Character = ({ character }: CharacterProps) => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* LEFT COLUMN */}
-      <div className="grid md:gap-4 grid-cols-1 md:grid-cols-9">
+      <section className="grid md:gap-4 grid-cols-1 md:grid-cols-9">
         <div className="md:col-span-3 md:pr-4 md:border-r">
           {look && <CharacterInfo headline="Look" content={look} />}
           <CharacterInfo headline="Stress" content={stress} />
@@ -151,7 +151,7 @@ export const Character = ({ character }: CharacterProps) => {
           )}
           {notes && <CharacterInfo headline="Notes" content={notes} />}
         </div>
-      </div>
+      </section>
     </>
   );
 };

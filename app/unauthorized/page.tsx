@@ -5,9 +5,9 @@ import { Logo } from "@/components/Header/Logo";
 
 const UnauthorizedPage = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen">
+    <main className="flex flex-col items-center justify-center min-h-screen">
       <Logo />
-      <div className="p-6 rounded-lg shadow-md text-center w-1/3">
+      <section className="p-6 rounded-lg shadow-md text-center w-1/3">
         <h1 className="text-3xl font-bold mb-4">Access Denied</h1>
         <p className="text-destructive">
           You don&apos;t have permission to edit this character.
@@ -19,8 +19,8 @@ const UnauthorizedPage = () => {
         >
           Back to home
         </Button>
-      </div>
-    </div>
+      </section>
+    </main>
   );
 };
 
