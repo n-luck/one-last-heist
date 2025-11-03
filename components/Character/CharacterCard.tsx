@@ -30,7 +30,7 @@ export const CharacterCard = ({ character }: CharacterCardProps) => {
   };
 
   return (
-    <Link href={`characters/${slug}`}>
+    <Link href={`/characters/${slug}`}>
       <GradientBorder className="w-full max-w-sm pt-0 pb-5 gap-1 rounded-b-none relative hover:cursor-pointer">
         <Card
           onMouseOver={handleMouseOver}

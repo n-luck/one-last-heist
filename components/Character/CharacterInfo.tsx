@@ -45,9 +45,10 @@ export const CharacterInfo = ({
                   checked={checkedItems[index] || false}
                   onChange={(e) => onToggle?.(index, e.target.checked)}
                   disabled={!checkable}
+                  id={`checkbox-${label}`}
                 />
               )}
-              <span title={description ?? label}>{label}</span>
+              <label title={description ?? label} htmlFor={`checkbox-${label}`}>{label}</label>
             </li>
           );
         })}
