@@ -39,7 +39,7 @@ export const Menu = () => {
         <ThemeToggle />
         <UserButton />
         <Sheet>
-          <SheetTrigger className="align-middle ml-8">
+          <SheetTrigger className="align-middle ml-8" aria-label="Menu">
             <MenuIcon />
           </SheetTrigger>
           <SheetContent className="flex flex-cold items-start p-3">
