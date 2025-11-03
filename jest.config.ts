@@ -12,11 +12,13 @@ const config: Config = {
   collectCoverage: true,
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
+  coveragePathIgnorePatterns: ["<rootDir>/lib/generated"],
   preset: "ts-jest",
   testEnvironment: "jsdom",
   transform: {
-    "^.+\\.tsx?$": "ts-jest",
+    "^.+\\.(ts|tsx)$": "ts-jest",
   },
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json"],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/$1",
   },
