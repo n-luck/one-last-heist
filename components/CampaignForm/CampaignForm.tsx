@@ -13,8 +13,11 @@ import slugify from "slugify";
 import Link from "next/link";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { insertCampaignSchema } from "@/lib/validators";
-import { createCampaign } from "@/lib/actions/campaigns.actions";
+import { insertCampaignSchema, updateCampaignSchema } from "@/lib/validators";
+import {
+  createCampaign,
+  updateCampaign,
+} from "@/lib/actions/campaigns.actions";
 import { campaignDefaultValues } from "@/lib/constants";
 import { Campaign } from "@/types";
 
@@ -35,14 +38,14 @@ import { CampaignPlayerSelect } from "./CampaignPlayerSelect";
 
 export interface CampaignFormProps {
   campaign?: Campaign;
-  //   campaignId?: string;
+  campaignId?: string;
   type: "create" | "update";
-  players: [];
+  players: string[];
 }
 
 export const CampaignForm = ({
   campaign,
-  //   campaignId = "",
+  campaignId = "",
   type = "create",
   players,
 }: CampaignFormProps) => {
@@ -50,8 +53,7 @@ export const CampaignForm = ({
   const isUpdate = type === "update";
   const formTypeCopy = type.charAt(0).toUpperCase() + type.slice(1);
 
-  //   const schema = isUpdate ? updateCharacterSchema : insertCampaignSchema;
-  const schema = insertCampaignSchema;
+  const schema = isUpdate ? updateCampaignSchema : insertCampaignSchema;
   const defaultValues = isUpdate ? campaign : { ...campaignDefaultValues };
 
   const form = useForm<z.infer<typeof schema>>({
@@ -60,10 +62,9 @@ export const CampaignForm = ({
   });
 
   const onSubmit: SubmitHandler<z.infer<typeof schema>> = async (values) => {
-    //     const action = isUpdate
-    //       ? updateCharacter({ ...values, id: campaignId })
-    //       : createCampaign(values);
-    const action = createCampaign(values);
+    const action = isUpdate
+      ? updateCampaign({ ...values, id: campaignId })
+      : createCampaign(values);
 
     const res = await action;
     if (!res.success) return toast.error(res.message);

@@ -1,9 +1,13 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 import { Character } from "@/types";
-import { Card, CardContent, CardHeader } from "../ui/card";
-import { GradientBorder } from "../GradientBorder";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { GradientBorder } from "@/components/GradientBorder";
+import { Button } from "@/components/ui/button";
 
 interface CampaignCardProps {
   campaign: string;
@@ -11,6 +15,7 @@ interface CampaignCardProps {
   characters?: Character[];
   image?: string;
   slug: string;
+  userName?: string;
 }
 
 export const CampaignCard = ({
@@ -19,11 +24,37 @@ export const CampaignCard = ({
   characters,
   image,
   slug,
+  userName,
 }: CampaignCardProps) => {
+  const [isHover, setIsHover] = useState(false);
+
+  const isCampaignPlayer = userName
+    ? characters?.some((character) => character.player === userName)
+    : false;
+
+  const handleMouseOver = () => {
+    setIsHover(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHover(false);
+  };
+
   return (
     <Link href={`campaigns/${slug}`}>
       <GradientBorder>
-        <Card className="pt-0">
+        <Card
+          className="pt-0 relative"
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+        >
+          {isCampaignPlayer && isHover && (
+            <div className="absolute right-2 top-2 z-10">
+              <Button size="sm" asChild>
+                <Link href={`/campaigns/${slug}/edit`}>Edit</Link>
+              </Button>
+            </div>
+          )}
           <CardHeader className="gap-0 border-b p-0">
             {image && (
               <div className="relative w-full pt-[60%]">

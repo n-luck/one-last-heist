@@ -1,18 +1,31 @@
-import { Campaign as CampaignType, Character } from "@/types";
-import { CharacterList } from "../Character/CharacterList";
 import Image from "next/image";
+import Link from "next/link";
+
+import { Campaign as CampaignType, Character } from "@/types";
+import { CharacterList } from "@/components/Character/CharacterList";
+import { Button } from "@/components/ui/button";
 
 interface CampaignProps {
   campaign: CampaignType;
   characters?: Character[];
+  player?: string;
 }
 
-export const Campaign = ({ campaign, characters }: CampaignProps) => {
-  const { name, image, notes } = campaign;
+export const Campaign = ({ campaign, characters, player }: CampaignProps) => {
+  const { name, image, notes, slug, players } = campaign;
+
+  const isCampaignPlayer = player ? players.includes(player) : false;
 
   return (
-    <section className="flex flex-col space-y-2">
+    <section className="flex flex-col space-y-2 relative">
       <h1 className="h1-bold mb-4">{name}</h1>
+      {isCampaignPlayer && (
+        <div className="absolute right-0 top-0">
+          <Button size="sm" asChild>
+            <Link href={`/campaigns/${slug}/edit`}>Edit</Link>
+          </Button>
+        </div>
+      )}
       <p>{notes}</p>
       {image && (
         <div className="relative md:w-md pt-[20%]">
@@ -26,7 +39,9 @@ export const Campaign = ({ campaign, characters }: CampaignProps) => {
           />
         </div>
       )}
-      {characters && <CharacterList title="Active characters" characterData={characters} />}
+      {characters && (
+        <CharacterList title="Active characters" characterData={characters} />
+      )}
     </section>
   );
 };

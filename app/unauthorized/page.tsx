@@ -10,7 +10,7 @@ const UnauthorizedPage = () => {
       <section className="p-6 rounded-lg shadow-md text-center w-1/3">
         <h1 className="text-3xl font-bold mb-4">Access Denied</h1>
         <p className="text-destructive">
-          You don&apos;t have permission to edit this character.
+          You don&apos;t have permission to edit this page.
         </p>
         <Button
           variant="outline"

@@ -4,9 +4,12 @@ import { getCharactersByCampaign } from "@/lib/actions/character.actions";
 import { getAllCampaigns } from "@/lib/actions/campaigns.actions";
 import { AddCampaignButton } from "@/components/Buttons/AddCampaignButton";
 import { Campaign } from "@/types";
+import { auth } from "@/auth";
 
 const CampaignsPage = async () => {
   const campaigns = await getAllCampaigns();
+  const session = await auth();
+  const userName = session?.user?.name || "";
 
   return (
     <section className="relative">
@@ -26,6 +29,7 @@ const CampaignsPage = async () => {
                 characters={characters}
                 image={campaign.image ?? undefined}
                 slug={campaign.slug}
+                userName={userName}
               />
             </Fragment>
           );
