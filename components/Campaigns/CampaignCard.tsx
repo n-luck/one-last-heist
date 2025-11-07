@@ -8,6 +8,7 @@ import { Character } from "@/types";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { GradientBorder } from "@/components/GradientBorder";
 import { Button } from "@/components/ui/button";
+import {Link as CustomLink} from "@/components/Link"
 
 interface CampaignCardProps {
   campaign: string;
@@ -84,9 +85,9 @@ export const CampaignCard = ({
               {characters &&
                 characters.map((character: Character) => (
                   <li key={`${character.name}-${character.player}`}>
-                    <Link href={`/characters/${character.slug}`}>
+                    <CustomLink href={`/characters/${character.slug}`}>
                       {character.name}
-                    </Link>{" "}
+                    </CustomLink>{" "}
                     <span className="text-muted-foreground text-sm">
                       ({character.player})
                     </span>
