@@ -42,6 +42,7 @@ export interface CampaignFormProps {
   campaignId?: string;
   type: "create" | "update";
   players: string[];
+  gameMaster?: string
 }
 
 export const CampaignForm = ({
@@ -49,13 +50,14 @@ export const CampaignForm = ({
   campaignId = "",
   type = "create",
   players,
+  gameMaster
 }: CampaignFormProps) => {
   const router = useRouter();
   const isUpdate = type === "update";
   const formTypeCopy = type.charAt(0).toUpperCase() + type.slice(1);
 
   const schema = isUpdate ? updateCampaignSchema : insertCampaignSchema;
-  const defaultValues = isUpdate ? campaign : { ...campaignDefaultValues };
+  const defaultValues = isUpdate ? campaign : { ...campaignDefaultValues, gameMaster: gameMaster || "" };
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
@@ -152,7 +154,7 @@ export const CampaignForm = ({
 
             <CampaignPlayerSelect form={form} players={players} />
 
-            <CampaignGMSelect form={form} players={players} />
+            <CampaignGMSelect form={form} players={players} gameMaster={gameMaster} />
 
             <div className="md:col-span-2 upload-field">
               <FormImage control={form.control} form={form} />

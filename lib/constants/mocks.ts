@@ -4,6 +4,7 @@ export const campaignData = {
   image: null,
   notes: null,
   players: ["Test1", "Test2"],
+  gameMaster: "Test",
 };
 
 export const mockCharacter = {
@@ -31,4 +32,17 @@ export const mockSession = {
     name: "Jeeves",
     email: "jeeves@wooster.com",
   },
-}; 
+};
+
+export function createMockPointerEvent(
+  type: string,
+  props: PointerEventInit = {}
+): PointerEvent {
+  const event = new Event(type, props) as PointerEvent;
+  Object.assign(event, {
+    button: props.button ?? 0,
+    ctrlKey: props.ctrlKey ?? false,
+    pointerType: props.pointerType ?? "mouse",
+  });
+  return event;
+}

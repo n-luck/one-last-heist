@@ -105,6 +105,7 @@ describe("Zod Schemas", () => {
         slug: "test",
         image: null,
         notes: null,
+        gameMaster: "Test"
       };
       const parsed = insertCampaignSchema.parse(data);
       expect(parsed.players).toEqual([]);

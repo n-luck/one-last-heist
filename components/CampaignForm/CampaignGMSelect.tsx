@@ -17,9 +17,10 @@ import {
 interface CampaignGMSelectProps {
   form: UseFormReturn;
   players: { label: string; value: string }[];
+  gameMaster?: string
 }
 
-export const CampaignGMSelect = ({ form, players }: CampaignGMSelectProps) => {
+export const CampaignGMSelect = ({ form, players, gameMaster }: CampaignGMSelectProps) => {
   return (
     <FormField
       control={form.control}
@@ -27,14 +28,18 @@ export const CampaignGMSelect = ({ form, players }: CampaignGMSelectProps) => {
       render={({ field }) => {
         return (
           <FormItem>
-            <FormLabel>Game Master*</FormLabel>
+            <FormLabel htmlFor="gameMaster">Game Master*</FormLabel>
             <FormControl>
               <div className="flex flex-col gap-2">
                 <Select
-                  value={field.value || ""}
+                  value={field.value || gameMaster || ""}
                   onValueChange={(value) => field.onChange(value)}
                 >
-                  <SelectTrigger className="rounded-none w-full cursor-pointer">
+                  <SelectTrigger
+                    className="rounded-none w-full cursor-pointer"
+                    id="gameMaster"
+                    data-testid="gameMaster"
+                  >
                     <SelectValue placeholder="Add a game master" />
                   </SelectTrigger>
                   <SelectContent>

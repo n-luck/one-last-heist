@@ -1,8 +1,10 @@
 import React from "react";
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { CampaignForm, CampaignFormProps } from "../CampaignForm";
 import { createCampaign } from "@/lib/actions/campaigns.actions";
 import { toast } from "sonner";
+import { createMockPointerEvent } from "@/lib/constants/mocks";
 
 const mockPush = jest.fn();
 jest.mock("next/navigation", () => ({
@@ -37,12 +39,20 @@ jest.mock("@uploadthing/react", () => ({
   ),
 }));
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+window.PointerEvent = createMockPointerEvent as any;
+Object.assign(window.HTMLElement.prototype, {
+  scrollIntoView: jest.fn(),
+  releasePointerCapture: jest.fn(),
+  hasPointerCapture: jest.fn(),
+});
+
 describe("CampaignForm", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  const defaultProps: CampaignFormProps = { type: "create", players: [] };
+  const defaultProps: CampaignFormProps = { type: "create", players: [], gameMaster: "Test" };
 
   it("renders form fields", () => {
     render(<CampaignForm {...defaultProps} />);
@@ -101,6 +111,8 @@ describe("CampaignForm", () => {
         expect.objectContaining({
           name: "Test Campaign",
           slug: "test-campaign",
+          players: [],
+          gameMaster: "Test",
         })
       );
 
@@ -114,8 +126,9 @@ describe("CampaignForm", () => {
       success: false,
       message: "Failed to create",
     });
-
     render(<CampaignForm {...defaultProps} />);
+
+    const user = userEvent.setup();
     const nameInput = screen.getByLabelText(
       "Campaign name*"
     ) as HTMLInputElement;

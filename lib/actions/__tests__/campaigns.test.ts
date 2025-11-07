@@ -57,6 +57,7 @@ describe("Campaign actions", () => {
       players: ["Test1", "Test2"],
       image: null,
       notes: null,
+      gameMaster: "Test",
     });
 
     expect(prisma.campaign.create).toHaveBeenCalledWith({

@@ -30,4 +30,5 @@ export const campaignDefaultValues = {
   players: [],
   image: "/images/characters/placeholder.jpeg",
   notes: "",
+  gameMaster: ""
 };
