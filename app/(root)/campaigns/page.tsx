@@ -20,16 +20,18 @@ const CampaignsPage = async () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {campaigns.map(async (campaign: Campaign) => {
           const characters = await getCharactersByCampaign(campaign.name);
+          const { name, gameMaster, image, slug } = campaign;
 
           return (
-            <Fragment key={campaign.name}>
+            <Fragment key={name}>
               <CampaignCard
-                campaign={campaign.name}
+                campaign={name}
                 count={characters.length}
                 characters={characters}
-                image={campaign.image ?? undefined}
-                slug={campaign.slug}
+                image={image ?? undefined}
+                slug={slug}
                 userName={userName}
+                gameMaster={gameMaster}
               />
             </Fragment>
           );

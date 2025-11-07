@@ -12,7 +12,7 @@ export const Logo = () => {
         <span className="uppercase font-bold ml-1 hidden md:flex">
           {APP_NAME}
         </span>
-        <span className="text-xs text-cyan-600 ml-1">v0.3 alpha</span>
+        <span className="text-xs text-cyan-600 ml-1">v0.4 alpha</span>
       </div>
     </Link>
   );

@@ -16,6 +16,7 @@ interface CampaignCardProps {
   image?: string;
   slug: string;
   userName?: string;
+  gameMaster?: string;
 }
 
 export const CampaignCard = ({
@@ -25,12 +26,14 @@ export const CampaignCard = ({
   image,
   slug,
   userName,
+  gameMaster,
 }: CampaignCardProps) => {
   const [isHover, setIsHover] = useState(false);
 
   const isCampaignPlayer = userName
     ? characters?.some((character) => character.player === userName)
     : false;
+  const isGameMaster = userName === gameMaster;
 
   const handleMouseOver = () => {
     setIsHover(true);
@@ -48,7 +51,7 @@ export const CampaignCard = ({
           onMouseOver={handleMouseOver}
           onMouseOut={handleMouseOut}
         >
-          {isCampaignPlayer && isHover && (
+          {(isCampaignPlayer || isGameMaster) && isHover && (
             <div className="absolute right-2 top-2 z-10">
               <Button size="sm" asChild>
                 <Link href={`/campaigns/${slug}/edit`}>Edit</Link>
@@ -75,7 +78,7 @@ export const CampaignCard = ({
               </p>
             </div>
           </CardHeader>
-          <CardContent>
+          <CardContent className="space-y-4">
             <h3 className="h3-bold mb-2">Players:</h3>
             <ul className="leading-8">
               {characters &&
@@ -90,6 +93,8 @@ export const CampaignCard = ({
                   </li>
                 ))}
             </ul>
+            <h3 className="h3-bold mb-2">Game Master:</h3>
+            {gameMaster ? gameMaster : "/"}
           </CardContent>
         </Card>
       </GradientBorder>

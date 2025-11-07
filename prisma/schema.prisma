@@ -93,12 +93,13 @@ model VerificationToken {
 }
 
 model Campaign {
-  id               String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name             String
-  slug             String    @unique(map: "campaign_slug_idx")
-  players          String[]  @default([])
-  image            String?
-  notes            String?
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name       String
+  slug       String   @unique(map: "campaign_slug_idx")
+  players    String[] @default([])
+  image      String?
+  notes      String?
+  gameMaster String
 
   createdAt DateTime @default(now()) @db.Timestamp(6)
 }

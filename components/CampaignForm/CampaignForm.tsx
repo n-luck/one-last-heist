@@ -35,6 +35,7 @@ import { Textarea } from "../ui/textarea";
 
 import { FormImage } from "../FormElements/FormImage";
 import { CampaignPlayerSelect } from "./CampaignPlayerSelect";
+import { CampaignGMSelect } from "./CampaignGMSelect";
 
 export interface CampaignFormProps {
   campaign?: Campaign;
@@ -150,6 +151,8 @@ export const CampaignForm = ({
             />
 
             <CampaignPlayerSelect form={form} players={players} />
+
+            <CampaignGMSelect form={form} players={players} />
 
             <div className="md:col-span-2 upload-field">
               <FormImage control={form.control} form={form} />

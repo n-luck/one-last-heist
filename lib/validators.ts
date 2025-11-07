@@ -58,6 +58,7 @@ export const insertCampaignSchema = z.object({
   players: z.array(z.string()).default([]),
   image: z.string().nullable(),
   notes: z.string().nullable(),
+  gameMaster: z.string().min(3, "Game master must be at least 3 characters."),
 });
 
 export const updateCampaignSchema = insertCampaignSchema.extend({

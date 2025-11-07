@@ -18,7 +18,7 @@ import { X as CloseIcon } from "lucide-react";
 
 interface CampaignPlayerSelectProps {
   form: UseFormReturn;
-  players: [{ label: string; value: string }];
+  players: { label: string; value: string }[];
 }
 
 export const CampaignPlayerSelect = ({
