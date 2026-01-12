@@ -47,6 +47,9 @@ export const SignIn = () => {
             required
             autoComplete="email"
           />
+          <p className="text-sm text-muted-foreground">
+            <Link href="/forgot-password">Forgot your password?</Link>
+          </p>
         </div>
         <SignInButton />
         {data && !data.success && (

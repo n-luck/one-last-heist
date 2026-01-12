@@ -4,6 +4,8 @@ import { isRedirectError } from "next/dist/client/components/redirect-error";
 import { hashSync } from "bcrypt-ts-edge";
 import prisma from "@/db/prisma";
 import { auth, signIn, signOut } from "@/auth";
+import crypto from "crypto";
+import { resend } from "@/lib/email";
 
 import { signInFormSchema } from "../validators";
 import { signUpFormSchema } from "../validators";
@@ -112,4 +114,65 @@ export async function getAllUsers() {
   });
 
   return convertToPlainObject(data);
+}
+
+export async function requestPasswordReset(email: string) {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) return { success: true };
+
+  const token = crypto.randomBytes(32).toString("hex");
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      resetToken: token,
+      resetTokenExpires: new Date(Date.now() + 1000 * 60 * 60),
+    },
+  });
+
+  const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`;
+
+  await resend.emails.send({
+    from: process.env.EMAIL_FROM!,
+    to: user.email,
+    subject: "Reset your password",
+    html: `
+      <p>You requested a password reset.</p>
+      <p>
+        <a href="${resetUrl}">
+          Click here to reset your password
+        </a>
+      </p>
+      <p>This link expires in 1 hour.</p>
+      <p>If you didn’t request this, you can ignore this email.</p>
+    `,
+  });
+
+  return { success: true };
+}
+
+export async function resetPassword(token: string, newPassword: string) {
+  const user = await prisma.user.findFirst({
+    where: {
+      resetToken: token,
+      resetTokenExpires: {
+        gt: new Date(),
+      },
+    },
+  });
+
+  if (!user) {
+    return { success: false, message: "Invalid or expired token" };
+  }
+
+  await prisma.user.update({
+    where: { id: user.id },
+    data: {
+      password: hashSync(newPassword, 10),
+      resetToken: null,
+      resetTokenExpires: null,
+    },
+  });
+
+  return { success: true };
 }
